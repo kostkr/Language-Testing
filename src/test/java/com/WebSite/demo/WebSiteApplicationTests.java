@@ -1,10 +1,11 @@
 package com.WebSite.demo;
 
+import com.WebSite.demo.DBConnection.AlbumDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebSiteApplicationTests {
+class WebSiteApplicationTests extends AlbumDao {
 
 	@Test
 	void contextLoads() {

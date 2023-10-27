@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test your english</title>
+    <link th:href = "@{/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <header class="text-light bg-dark d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2 link-secondary text-light">Home</a></li>
+            <li><form action="/" method="post">
+                    <input class="btn btn-dark" type="submit" value="Grammar" name="lessonName">
+                </form>
+            </li>
+            <li><form action="/" method="post">
+                    <input class="btn btn-dark" type="submit" value="Vocabulary" name="lessonName">
+                </form>
+            </li>
+            <li><form action="/" method="post">
+                    <input class="btn btn-dark" type="submit" value="Listening" name="lessonName">
+                </form>
+            </li>
+            <li><form action="/" method="post">
+                    <input class="btn btn-dark" type="submit" value="Reading" name="lessonName">
+                </form>
+            </li>
+            <li><form action="/" method="post">
+                    <input class="btn btn-dark" type="submit" value="Writing" name="lessonName">
+                </form>
+            </li>
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-outline-light me-2">Login</button>
+            <button type="button" class="btn btn-outline-light">Sign-up</button>
+        </div>
+    </header>
+</div>
+</body>
+</html>
