@@ -1,6 +1,6 @@
 package com.WebSite.demo;
 
-import com.WebSite.demo.DBConnection.AlbumDao;
+import com.WebSite.demo.dataBase.AlbumDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

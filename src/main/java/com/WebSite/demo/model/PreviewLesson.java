@@ -5,15 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Album {
-    Lesson.Type type;
-    Lesson.Level level;
-    List<PreviewLesson> previewLessons;
+public class PreviewLesson{
+    private Long id;
+    private String name;
+    private String description;
 }

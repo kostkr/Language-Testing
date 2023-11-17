@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Album Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h2 class="my-4">Enter Album Details</h2>
+    <!-- Display Album Details -->
+    <div th:if="${album}">
+        <h2 class="my-4" th:text="${album.getLevel()} + ' ' + ${album.getType()}"></h2>
+        <div class="container">
+            <!-- Iterate over previewLessons -->
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div th:each="previewLesson : ${album.getPreviewLessons()}" class="col">
+                            <div class="card shadow-sm">
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text th:text="${previewLesson.getName()}" x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg>
+                                <div class="card-body">
+                                    <p class="card-text" th:text="${previewLesson.description}"></p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a th:href="@{/lesson/{id}(id=${previewLesson.getId()})}" class="btn btn-sm btn-outline-secondary">View</a>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    function loadMore() {
+        // Implement your logic to load more lessons
+        // You may need to make an AJAX request to the server to fetch additional lessons
+        alert("Load more lessons...");
+    }
+</script>
+</body>
+</html>

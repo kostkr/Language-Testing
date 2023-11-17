@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Create Lesson</title>
+</head>
+
+<body>
+
+<div class="container mt-5">
+    <h2>Create Lesson</h2>
+    <form action="/createLesson" method="post" id="createTestForm">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="level">Level:</label>
+            <select class="form-control" id="level" name="level" required>
+                <option value="A1">A1</option>
+                <option value="A2">A2</option>
+                <option value="B1">B1</option>
+                <option value="B2">B2</option>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="level">Type:</label>
+            <select class="form-control" id="type" name="type" required>
+                <option value="Grammar">Grammar</option>
+                <option value="Vocabulary">Vocabulary</option>
+                <option value="Listening">Listening</option>
+                <option value="Reading">Reading</option>
+                <option value="Writing">Writing</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="task">Task:</label>
+            <textarea class="form-control" id="task" name="task" rows="5" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="questionCount">Number of Questions:</label>
+            <input type="number" class="form-control" id="questionCount" name="questionCount" min="1" required>
+        </div>
+        <div id="questionsContainer" class="form-group">
+            <!-- JavaScript will add question-answer pairs here -->
+        </div>
+        <button type="button" class="btn btn-primary" onclick="addQuestion()">Add Question</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script>
+    function addQuestion() {
+        var questionCount = document.getElementById('questionCount').value;
+        var container = document.getElementById('questionsContainer');
+
+        // Clear existing content
+        container.innerHTML = '';
+
+        for (var i = 1; i <= questionCount; i++) {
+            var questionInput = document.createElement('input');
+            questionInput.type = 'text';
+            questionInput.className = 'form-control';
+            questionInput.name = 'questions[]';
+            questionInput.placeholder = 'Question ' + i;
+            container.appendChild(questionInput);
+
+            var answerInput = document.createElement('input');
+            answerInput.type = 'text';
+            answerInput.className = 'form-control mt-2';
+            answerInput.name = 'answers[]';
+            answerInput.placeholder = 'Answer for Question ' + i;
+            container.appendChild(answerInput);
+        }
+    }
+</script>
+
+</body>
+
+</html>
+
+

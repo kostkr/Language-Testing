@@ -3,33 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <title>Test your english</title>
-    <link th:href = "@{/css/bootstrap.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <div class="container-fluid">
     <header class="text-light bg-dark d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="/" class="nav-link px-2 link-secondary text-light">Home</a></li>
-            <li><form action="/" method="post">
-                    <input class="btn btn-dark" type="submit" value="Grammar" name="lessonName">
-                </form>
-            </li>
-            <li><form action="/" method="post">
-                    <input class="btn btn-dark" type="submit" value="Vocabulary" name="lessonName">
-                </form>
-            </li>
-            <li><form action="/" method="post">
-                    <input class="btn btn-dark" type="submit" value="Listening" name="lessonName">
-                </form>
-            </li>
-            <li><form action="/" method="post">
-                    <input class="btn btn-dark" type="submit" value="Reading" name="lessonName">
-                </form>
-            </li>
-            <li><form action="/" method="post">
-                    <input class="btn btn-dark" type="submit" value="Writing" name="lessonName">
-                </form>
-            </li>
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="grammar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Grammar
+                </button>
+                <div class="dropdown-menu" aria-labelledby="grammar">
+                    <a class="dropdown-item" href="/album?type=Grammar&level=A1">A1</a>
+                    <a class="dropdown-item" href="/album?type=Grammar&level=A2">A2</a>
+                    <a class="dropdown-item" href="/album?type=Grammar&level=B1">B1</a>
+                    <a class="dropdown-item" href="/album?type=Grammar&level=B2">B2</a>
+                    <a class="dropdown-item" href="/album?type=Grammar&level=C1">C1</a>
+                    <a class="dropdown-item" href="/album?type=Grammar&level=C2">C2</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="Vocabulary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Vocabulary
+                </button>
+                <div class="dropdown-menu" aria-labelledby="Vocabulary">
+                    <a class="dropdown-item" href="/album?type=Vocabulary&level=A1">A1</a>
+                    <a class="dropdown-item" href="/album?type=Vocabulary&level=A2">A2</a>
+                    <a class="dropdown-item" href="/album?type=Vocabulary&level=B1">B1</a>
+                    <a class="dropdown-item" href="/album?type=Vocabulary&level=B2">B2</a>
+                    <a class="dropdown-item" href="/album?type=Vocabulary&level=C1">C1</a>
+                    <a class="dropdown-item" href="/album?type=Vocabulary&level=C2">C2</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="Listening" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Listening
+                </button>
+                <div class="dropdown-menu" aria-labelledby="Listening">
+                    <a class="dropdown-item" href="/album?type=Listening&level=A1">A1</a>
+                    <a class="dropdown-item" href="/album?type=Listening&level=A2">A2</a>
+                    <a class="dropdown-item" href="/album?type=Listening&level=B1">B1</a>
+                    <a class="dropdown-item" href="/album?type=Listening&level=B2">B2</a>
+                    <a class="dropdown-item" href="/album?type=Listening&level=C1">C1</a>
+                    <a class="dropdown-item" href="/album?type=Listening&level=C2">C2</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="Reading" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reading
+                </button>
+                <div class="dropdown-menu" aria-labelledby="Reading">
+                    <a class="dropdown-item" href="/album?type=Reading&level=A1">A1</a>
+                    <a class="dropdown-item" href="/album?type=Reading&level=A2">A2</a>
+                    <a class="dropdown-item" href="/album?type=Reading&level=B1">B1</a>
+                    <a class="dropdown-item" href="/album?type=Reading&level=B2">B2</a>
+                    <a class="dropdown-item" href="/album?type=Reading&level=C1">C1</a>
+                    <a class="dropdown-item" href="/album?type=Reading&level=C2">C2</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="Writing" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Writing
+                </button>
+                <div class="dropdown-menu" aria-labelledby="Writing">
+                    <a class="dropdown-item" href="/album?type=Writing&level=A1">A1</a>
+                    <a class="dropdown-item" href="/album?type=Writing&level=A2">A2</a>
+                    <a class="dropdown-item" href="/album?type=Writing&level=B1">B1</a>
+                    <a class="dropdown-item" href="/album?type=Writing&level=B2">B2</a>
+                    <a class="dropdown-item" href="/album?type=Writing&level=C1">C1</a>
+                    <a class="dropdown-item" href="/album?type=Writing&level=C2">C2</a>
+                </div>
+            </div>
+            <li><a href="/createLesson" class="nav-link px-2 link-secondary text-light">Create Lesson</a></li>
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
