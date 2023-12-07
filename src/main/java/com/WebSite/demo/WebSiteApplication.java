@@ -1,11 +1,9 @@
 package com.WebSite.demo;
 
-import com.WebSite.demo.dataBase.AlbumDao;
-import com.WebSite.demo.dataBase.HibernateUtil;
 import com.WebSite.demo.dataBase.LessonDao;
-import com.WebSite.demo.model.Album;
+import com.WebSite.demo.dataBase.UserDao;
 import com.WebSite.demo.model.Lesson;
-import com.WebSite.demo.model.PreviewLesson;
+import com.WebSite.demo.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -28,11 +26,12 @@ public class WebSiteApplication{
 				build();
 		LessonDao.addLesson(lesson);
 
-//		Album album = AlbumDao.getAlbum(Lesson.Type.Grammar, Lesson.Level.A1);
-//		System.out.println(album.getLevel().toString());
-//		for(PreviewLesson previewLesson : album.getPreviewLessons()){
-//			System.out.println(previewLesson.getId() + " " + previewLesson.getName() + " " + previewLesson.getDescription());
-//		}
+		User newUser = User.builder()
+				.name("Vladyslav Khabanets")
+				.email("miroslavdovger@gmail.com")
+				.password("rootROOT!1")
+				.build();
+		UserDao.addUser(newUser);
 	}
 
 }
