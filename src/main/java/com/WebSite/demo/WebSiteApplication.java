@@ -15,7 +15,7 @@ public class WebSiteApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(WebSiteApplication.class, args);
-		Lesson lesson = Lesson.builder().
+		/*Lesson lesson = Lesson.builder().
 				name("name").
 				level(Lesson.Level.A1).
 				type(Lesson.Type.Grammar).
@@ -27,11 +27,12 @@ public class WebSiteApplication{
 		LessonDao.addLesson(lesson);
 
 		User newUser = User.builder()
-				.name("Vladyslav Khabanets")
+				.name("rootroot")
 				.email("miroslavdovger@gmail.com")
 				.password("rootROOT!1")
+				.role("ROLE_USER")
 				.build();
-		UserDao.addUser(newUser);
+		UserDao.addUser(newUser);*/
 	}
 
 }

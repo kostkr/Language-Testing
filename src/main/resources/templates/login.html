@@ -20,8 +20,8 @@
                             <h2 class="text-uppercase text-center mb-5">Login into an account</h2>
                             <form th:action="@{/login}" method="post" id="loginUser">
                                 <div class="form-group mb-4">
-                                    <label for="email">Your Email</label>
-                                    <input type="email" id="email" name="email" class="form-control form-control-lg" required/>
+                                    <label for="username">Your name</label>
+                                    <input type="text" id="username" name="username" class="form-control form-control-lg" required/>
                                 </div>
 
                                 <div class="form-group mb-4">
@@ -33,6 +33,13 @@
                                     <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
                                 </div>
                             </form>
+
+                            <div th:if="${param.error}">
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    Invalid username or password. Please try again.
+                                </div>
+                            </div>
+
                             <p class="text-center text-muted mt-5 mb-0">Don't have an account?
                                 <a href="/signup" class="fw-bold text-body"><u>Sign up here</u></a>
                             </p>
@@ -43,13 +50,5 @@
         </div>
     </div>
 </section>
-
-<script th:inline="javascript">
-    function loadMore() {
-        // Implement your logic to load more lessons
-        // You may need to make an AJAX request to the server to fetch additional lessons
-        alert("Load more lessons...");
-    }
-</script>
 </body>
 </html>

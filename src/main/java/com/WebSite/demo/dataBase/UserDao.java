@@ -2,9 +2,13 @@ package com.WebSite.demo.dataBase;
 
 import com.WebSite.demo.model.User;
 import org.hibernate.Session;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserDao {
     public static void addUser(User user){
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.persist(user);
@@ -15,42 +19,17 @@ public class UserDao {
         }
     }
 
-    public static User findByEmail(String email){// return null if lesson doesn't exit
+    public static User findByName(String name){// return null if lesson doesn't exit
         User user = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            user = session.createQuery("FROM client WHERE email = :email", User.class)
-                    .setParameter("email", email)
+            user = session.createQuery("FROM users WHERE name = :name", User.class)
+                    .setParameter("name", name)
                     .uniqueResult();
             session.getTransaction().commit();
         }catch (Exception e){
             System.err.println("err find user");
         }
         return user;
-    }
-
-    public static boolean emailExists(String email){
-        User user = null;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            user = session.createQuery("FROM client WHERE email = :email", User.class)
-                    .setParameter("email", email)
-                    .uniqueResult();
-        }catch (Exception e){
-            System.err.println("err check email exists");
-        }
-        return user != null;
-    }
-
-    public static boolean userExists(String email, String password){
-        User user = null;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            user = session.createQuery("FROM client WHERE email = :email AND password = :password", User.class)
-                    .setParameter("email", email)
-                    .setParameter("password", password)
-                    .uniqueResult();
-        }catch (Exception e){
-            System.err.println("err check user exists");
-        }
-        return user != null;
     }
 }
