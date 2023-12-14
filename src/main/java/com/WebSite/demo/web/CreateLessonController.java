@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/createLesson")
 public class CreateLessonController {
-    @PostMapping
+    /*@PostMapping
     public String processForm(
             @RequestParam("name") String name,
             @RequestParam("level") Lesson.Level level,
@@ -37,7 +37,7 @@ public class CreateLessonController {
         LessonDao.addLesson(lesson);
 
         return "createLesson";
-    }
+    }*/
 
     @GetMapping
     public String showCreateTestPage(){

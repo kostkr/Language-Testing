@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -95,16 +95,16 @@
     <div th:if="${album}">
         <h2 class="my-4" th:text="${album.getLevel()} + ' ' + ${album.getType()}"></h2>
         <div class="container">
-            <!-- Iterate over previewLessons -->
+            <!-- Iterate over lessonInfoList -->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div th:each="previewLesson : ${album.getPreviewLessons()}" class="col">
+                <div th:each="lessonInfo : ${album.getLessonInfoList()}" class="col">
                     <div class="card shadow-sm">
                         <img src="https://comparic.pl/wp-content/uploads/2021/06/doge-shiba.jpg" class="img-fluid" alt="Responsive image">
                         <div class="card-body">
-                            <p class="card-text" th:text="${previewLesson.description}"></p>
+                            <p class="card-text" th:text="${lessonInfo.description}"></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a th:href="@{/lesson/{id}(id=${previewLesson.getId()})}" class="btn btn-sm btn-outline-secondary">View</a>
+                                    <a th:href="@{/lesson/{id}(id=${lessonInfo.getId()})}" class="btn btn-sm btn-outline-secondary">View</a>
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                                 </div>
                             </div>

@@ -28,7 +28,7 @@ public class UserDao {
                     .uniqueResult();
             session.getTransaction().commit();
         }catch (Exception e){
-            System.err.println("err find user");
+            System.err.println("user not found");
         }
         return user;
     }

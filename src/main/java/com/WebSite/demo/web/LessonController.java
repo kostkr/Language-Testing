@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class LessonController {
     @GetMapping("/lesson/{id}")
     public String showLesson(@PathVariable("id") int id, Model model){
-        Lesson lesson = LessonDao.getLessonById(id);
+        Lesson lesson = LessonDao.findLessonById(id);
         model.addAttribute(lesson);
         return "lesson";
     }

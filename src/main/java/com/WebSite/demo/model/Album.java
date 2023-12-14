@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Album {
-    Lesson.Type type;
-    Lesson.Level level;
-    List<PreviewLesson> previewLessons;
+    String type;
+    String level;
+    List<LessonInfo> lessonInfoList;
 }
