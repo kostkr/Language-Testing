@@ -24,7 +24,7 @@ public class UserController {
      * register a new user
      * @param name unique
      * @param email unique
-     * @param password
+     * @param password password
      * @return page to log in
      */
     @PostMapping("/signup")

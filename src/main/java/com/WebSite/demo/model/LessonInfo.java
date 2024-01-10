@@ -34,6 +34,9 @@ public class LessonInfo {
     @Column
     private String imageURL;
 
+    @Column
+    private String opt; // url video, url listening or text ...
+
     public enum Level {
         A1, A2, B1, B2, C1, C2
     }

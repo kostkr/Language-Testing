@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.*;
 public class GreetingController {
     @GetMapping("/")
     public String showHome(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("my authentification " + authentication);
-
         return "greeting";
     }
 

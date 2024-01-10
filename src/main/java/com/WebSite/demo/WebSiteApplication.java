@@ -21,9 +21,10 @@ public class WebSiteApplication{
 		LessonInfo lessonInfo = LessonInfo.builder()
 				.name("myname")
 				.level(LessonInfo.Level.A1.name())
-				.type(LessonInfo.Type.Grammar.name())
+				.type(LessonInfo.Type.Writing.name())
 				.description("mydescription")
 				.imageURL("https://comparic.pl/wp-content/uploads/2021/06/doge-shiba.jpg")
+				.opt("https://www.youtube-nocookie.com/embed/YdWo5zbbGnY?si=5F_L8FWP1mzGDkjM")
 				.build();
 
 		Lesson lesson = Lesson.builder()
@@ -34,14 +35,13 @@ public class WebSiteApplication{
 
 		LessonDao.addLesson(lesson, lessonInfo);
 
-
-		User newUser = User.builder()
+		/*User newUser = User.builder()
 				.name("rootroot")
 				.email("miroslavdovger@gmail.com")
 				.password("rootROOT!1")
 				.role("ROLE_USER")
 				.build();
-		UserDao.addUser(newUser);
+		UserDao.addUser(newUser);*/
 	}
 
 }

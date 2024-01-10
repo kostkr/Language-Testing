@@ -34,6 +34,7 @@ public class CreateLessonController {
             @RequestParam("type") String type,
             @RequestParam("description") String description,
             @RequestParam("imageURL") String imageURL,
+            @RequestParam(value = "opt", required = false) String opt,
             @RequestParam("task") String task,
             @RequestParam("questions[]") String[] questionsArray,
             @RequestParam("answers[]") String[] answersArray)
@@ -44,6 +45,7 @@ public class CreateLessonController {
                 .type(type)
                 .description(description)
                 .imageURL(imageURL)
+                .opt(opt != null ? opt : "null")
                 .build();
 
         Lesson lesson = Lesson.builder()

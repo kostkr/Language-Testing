@@ -24,7 +24,7 @@ public class LessonDao {
 
     }
 
-    public static Lesson findLessonById(int lessonId){// return null if lesson doesn't exit
+    public static Lesson findLessonById(long lessonId){// return null if lesson doesn't exit
         Lesson lesson = null;
         try(Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
