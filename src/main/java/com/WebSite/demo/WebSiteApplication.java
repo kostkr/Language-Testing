@@ -1,8 +1,10 @@
 package com.WebSite.demo;
 
 import com.WebSite.demo.dataBase.LessonDao;
+import com.WebSite.demo.dataBase.UserDao;
 import com.WebSite.demo.model.Lesson;
 import com.WebSite.demo.model.LessonInfo;
+import com.WebSite.demo.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -33,13 +35,13 @@ public class WebSiteApplication{
 		LessonDao.addLesson(lesson, lessonInfo);
 
 
-		/*User newUser = User.builder()
+		User newUser = User.builder()
 				.name("rootroot")
 				.email("miroslavdovger@gmail.com")
 				.password("rootROOT!1")
 				.role("ROLE_USER")
 				.build();
-		UserDao.addUser(newUser);*/
+		UserDao.addUser(newUser);
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.WebSite.demo.web;
 
 import com.WebSite.demo.dataBase.LessonDao;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 public class GreetingController {
     @GetMapping("/")
     public String showHome(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("my authentification " + authentication);
+
         return "greeting";
     }
 
