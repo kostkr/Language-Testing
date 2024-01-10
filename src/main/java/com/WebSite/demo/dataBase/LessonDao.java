@@ -35,4 +35,20 @@ public class LessonDao {
         }
         return lesson;
     }
+
+    public static Long findLessonByName(String name){
+        LessonInfo lessonInfo = null;
+        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            lessonInfo = session.createQuery("FROM lesson_info WHERE name = :name", LessonInfo.class)
+                            .setParameter("name", name)
+                            .setMaxResults(1)
+                            .uniqueResult();
+            session.getTransaction().commit();
+        }catch (Exception e){
+            System.err.println("lesson not found");
+        }
+
+        return lessonInfo != null ? lessonInfo.getId() : null;
+    }
 }

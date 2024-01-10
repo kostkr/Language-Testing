@@ -37,6 +37,5 @@ public class LessonInfo {
 
     public enum Type{
         Reading, Listening, Grammar, Writing, Vocabulary
-
     }
 }

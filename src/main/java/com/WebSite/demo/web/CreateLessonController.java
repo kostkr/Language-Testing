@@ -2,6 +2,7 @@ package com.WebSite.demo.web;
 
 import com.WebSite.demo.dataBase.LessonDao;
 import com.WebSite.demo.model.Lesson;
+import com.WebSite.demo.model.LessonInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,30 +15,35 @@ import java.util.List;
 @Controller
 @RequestMapping("/createLesson")
 public class CreateLessonController {
-    /*@PostMapping
+    @PostMapping
     public String processForm(
             @RequestParam("name") String name,
-            @RequestParam("level") Lesson.Level level,
-            @RequestParam("type") Lesson.Type type,
+            @RequestParam("level") String level,
+            @RequestParam("type") String type,
             @RequestParam("description") String description,
+            @RequestParam("imageURL") String imageURL,
             @RequestParam("task") String task,
             @RequestParam("questions[]") String[] questionsArray,
             @RequestParam("answers[]") String[] answersArray)
     {
-        Lesson lesson = Lesson.builder().
-                name(name).
-                level(level).
-                type(type).
-                description(description).
-                task(task).
-                questions(new ArrayList<>(List.of(questionsArray))).
-                answers(new ArrayList<>(List.of(answersArray))).
-                build();
+        LessonInfo lessonInfo = LessonInfo.builder()
+                .name(name)
+                .level(level)
+                .type(type)
+                .description(description)
+                .imageURL(imageURL)
+                .build();
 
-        LessonDao.addLesson(lesson);
+        Lesson lesson = Lesson.builder()
+                .task(task)
+                .questions(new ArrayList<>(List.of(questionsArray)))
+                .answers(new ArrayList<>(List.of(answersArray)))
+                .build();
+
+        LessonDao.addLesson(lesson, lessonInfo);
 
         return "createLesson";
-    }*/
+    }
 
     @GetMapping
     public String showCreateTestPage(){
