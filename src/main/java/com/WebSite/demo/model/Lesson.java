@@ -5,6 +5,10 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * basic lesson class,
+ * Lesson consist of LessonInfo (information about lesson), task, questions and answers
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

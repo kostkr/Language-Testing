@@ -6,6 +6,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
 
+/**
+ * implement permission and roles for users
+ */
 public class MyUserDetailService implements UserDetailsService {
     @Override
     public MyUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

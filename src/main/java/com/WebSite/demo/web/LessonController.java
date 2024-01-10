@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class LessonController {
+    /**
+     * show lesson to user
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/lesson/{id}")
     public String showLesson(@PathVariable("id") int id, Model model){
         Lesson lesson = LessonDao.findLessonById(id);

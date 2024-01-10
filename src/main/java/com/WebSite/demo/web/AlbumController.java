@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/album")
 public class AlbumController {
+    /**
+     * search album by type and level
+     * @param type
+     * @param level
+     * @param model
+     * @return album
+     */
     @GetMapping()
     String showAlbum (@RequestParam(value = "type", required = true) String type,
                       @RequestParam(value = "level", required = true) String level,

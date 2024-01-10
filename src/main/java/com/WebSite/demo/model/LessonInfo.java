@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * information about lesson for users
+ */
 @Data
 @Builder
 @AllArgsConstructor

@@ -15,6 +15,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/createLesson")
 public class CreateLessonController {
+    /**
+     * save new lesson
+     * @param name
+     * @param level
+     * @param type
+     * @param description
+     * @param imageURL
+     * @param task
+     * @param questionsArray
+     * @param answersArray
+     * @return
+     */
     @PostMapping
     public String processForm(
             @RequestParam("name") String name,

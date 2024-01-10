@@ -20,6 +20,13 @@ public class UserController {
         return "signup";
     }
 
+    /**
+     * register a new user
+     * @param name unique
+     * @param email unique
+     * @param password
+     * @return page to log in
+     */
     @PostMapping("/signup")
     public String signUpUser(@RequestParam("name") String name,
                          @RequestParam("email") String email,

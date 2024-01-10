@@ -7,7 +7,9 @@ import lombok.Setter;
 
 import java.util.List;
 
-
+/**
+ * a group of lessons sorted for users
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

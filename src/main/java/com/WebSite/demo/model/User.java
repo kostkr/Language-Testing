@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * contain personal information about users
+ */
 @Entity(name="users")
 @Data
 @NoArgsConstructor
