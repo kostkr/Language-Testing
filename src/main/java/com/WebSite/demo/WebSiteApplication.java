@@ -1,16 +1,11 @@
 package com.WebSite.demo;
 
-import com.WebSite.demo.dataBase.LessonDao;
-import com.WebSite.demo.dataBase.UserDao;
-import com.WebSite.demo.model.Lesson;
-import com.WebSite.demo.model.LessonInfo;
-import com.WebSite.demo.model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Entry point for the WebSiteApplication.
+ */
 @SpringBootApplication
 public class WebSiteApplication{
 

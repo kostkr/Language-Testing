@@ -1,6 +1,5 @@
 package com.WebSite.demo;
 
-import com.WebSite.demo.dataBase.AlbumDao;
 import com.WebSite.demo.dataBase.LessonDao;
 import com.WebSite.demo.web.CreateLessonController;
 import org.junit.jupiter.api.AfterAll;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,8 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.mockito.Mockito.mockStatic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 class CreateLessonControllerTest {
@@ -65,5 +62,37 @@ class CreateLessonControllerTest {
         mockMvc.perform(get("/createLesson"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("createLesson.html"));
+    }
+
+    @Test
+    public void processForm_Should_SaveNewLesson_When_ValidDataProvided() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(createLessonController).build();
+
+        mockMvc.perform(post("/createLesson")
+                        .param("name", "Math")
+                        .param("level", "Beginner")
+                        .param("type", "Type1")
+                        .param("description", "Description1")
+                        .param("imageURL", "ImageURL1")
+                        .param("task", "Task1")
+                        .param("questions[]", "Question1")
+                        .param("answers[]", "Answer1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void processForm_Should_ReturnCreateLessonPage_When_InvalidDataProvided() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(createLessonController).build();
+
+        mockMvc.perform(post("/createLesson")
+                        .param("name", "")
+                        .param("level", "Beginner")
+                        .param("type", "Type1")
+                        .param("description", "Description1")
+                        .param("imageURL", "ImageURL1")
+                        .param("task", "Task1")
+                        .param("questions[]", "Question1")
+                        .param("answers[]", "Answer1"))
+                .andExpect(status().isOk());
     }
 }

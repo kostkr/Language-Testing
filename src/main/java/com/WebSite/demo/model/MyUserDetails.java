@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
  * contains roles for users
  */
 public class MyUserDetails implements UserDetails {
+    /**
+     * Represents the user associated with the UserDetails.
+     */
     User user;
 
     public MyUserDetails(User user){

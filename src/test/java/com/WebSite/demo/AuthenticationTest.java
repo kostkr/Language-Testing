@@ -1,6 +1,5 @@
 package com.WebSite.demo;
 
-import com.WebSite.demo.dataBase.LessonDao;
 import com.WebSite.demo.dataBase.UserDao;
 import com.WebSite.demo.model.MyUserDetailService;
 import com.WebSite.demo.model.MyUserDetails;
