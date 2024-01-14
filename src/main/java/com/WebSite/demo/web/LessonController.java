@@ -18,6 +18,6 @@ public class LessonController {
     public String showLesson(@PathVariable("id") long id, Model model){
         Lesson lesson = LessonDao.findLessonById(id);
         model.addAttribute(lesson);
-        return "lesson";
+        return "lesson.html";
     }
 }

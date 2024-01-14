@@ -10185,8 +10185,8 @@
 							"left": 120,
 							"top": 448,
 							"width": 305,
-							"height": 25,
-							"text": "Decorator - MyUserDetails"
+							"height": 40,
+							"text": "Decorator - MyUserDetails\nState - MyUserDetailServer"
 						},
 						{
 							"_type": "UMLClassView",
@@ -12918,7 +12918,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGMbSq0yFkveBo="
 							},
-							"name": "session details"
+							"name": "session details",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -12926,7 +12927,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGMbSq0yFkveBo="
 							},
-							"name": "permitions"
+							"name": "permitions",
+							"type": ""
 						}
 					]
 				},

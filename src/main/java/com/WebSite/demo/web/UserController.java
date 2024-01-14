@@ -12,12 +12,12 @@ import static com.WebSite.demo.dataBase.UserDao.addUser;
 public class UserController {
     @GetMapping("/login")
     public String ShowLogin(){
-        return "login";
+        return "login.html";
     }
 
     @GetMapping("/signup")
     public String showSignUp(){
-        return "signup";
+        return "signup.html";
     }
 
     /**
@@ -39,6 +39,6 @@ public class UserController {
                 .build();
 
         addUser(newUser);
-        return "login";
+        return "login.html";
     }
 }

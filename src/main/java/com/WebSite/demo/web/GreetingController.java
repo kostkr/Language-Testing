@@ -1,8 +1,6 @@
 package com.WebSite.demo.web;
 
 import com.WebSite.demo.dataBase.LessonDao;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public class GreetingController {
     @GetMapping("/")
     public String showHome(){
-        return "greeting";
+        return "greeting.html";
     }
 
     /**
@@ -22,6 +20,6 @@ public class GreetingController {
     public String searchLesson(@RequestParam("name") String lessonName){
         Long lessonId = LessonDao.findLessonByName(lessonName);
 
-        return lessonId != null ? "redirect:/lesson/" + lessonId : "greeting";
+        return lessonId != null ? "redirect:/lesson/" + lessonId : "greeting.html";
     }
 }

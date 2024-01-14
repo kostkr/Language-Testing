@@ -19,12 +19,12 @@ public class AlbumController {
      * @return album
      */
     @GetMapping()
-    String showAlbum (@RequestParam(value = "type", required = true) String type,
-                      @RequestParam(value = "level", required = true) String level,
-                      Model model){
+    public String showAlbum(@RequestParam(value = "type") String type,
+                            @RequestParam(value = "level") String level,
+                            Model model){
         Album album = AlbumDao.getAlbumsByTypeLevel(type, level);
         model.addAttribute(album);
-        return "album";
+        return "album.html";
     }
 
 }

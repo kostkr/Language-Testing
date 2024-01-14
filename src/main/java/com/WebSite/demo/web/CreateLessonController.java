@@ -56,11 +56,11 @@ public class CreateLessonController {
 
         LessonDao.addLesson(lesson, lessonInfo);
 
-        return "createLesson";
+        return "createLesson.html";
     }
 
     @GetMapping
     public String showCreateTestPage(){
-        return "createLesson";
+        return "createLesson.html";
     }
 }

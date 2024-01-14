@@ -17,7 +17,7 @@ public class WebSiteApplication{
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(WebSiteApplication.class, args);
 
-		Thread.sleep(100);
+		/*Thread.sleep(100);
 		LessonInfo lessonInfo = LessonInfo.builder()
 				.name("myname")
 				.level(LessonInfo.Level.A1.name())
@@ -35,7 +35,7 @@ public class WebSiteApplication{
 
 		LessonDao.addLesson(lesson, lessonInfo);
 
-		/*User newUser = User.builder()
+		User newUser = User.builder()
 				.name("rootroot")
 				.email("miroslavdovger@gmail.com")
 				.password("rootROOT!1")
