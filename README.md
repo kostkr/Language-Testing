@@ -1,16 +1,16 @@
 # webSite
 
-## Funkcje
+## Features
 
-- **Tworzenie ćwiczeń:** Zalogowani użytkownicy mogą tworzyć nowe lekcje, dodawać treść, pytania i odpowiedzi.
+- **Exercise Creation:** Logged-in users can create new lessons, add content, questions, and answers.
 
-- **Przeglądanie Lekcji:** Użytkownicy mogą przeglądać dostępne lekcje, wybierać je na podstawie poziomu trudności, tematu i typu lekcji.
+- **Lesson Browsing:** Users can browse available lessons, choose them based on difficulty level, topic, and lesson type.
 
-- **Testy i Wyniki:** Platforma umożliwia użytkownikom uczestniczenie w testach, sprawdzanie swoich wyników oraz śledzenie postępów.
+- **Tests and Results:** The platform allows users to participate in tests, check their results, and track their progress.
 
-- **Albumy Lekcji:** Możliwość grupowania lekcji w albumy, co ułatwia organizację i przeglądanie.
+- **Lesson Albums:** The ability to group lessons into albums, facilitating organization and easy browsing.
 
-## Technologie
+## Technologies
 
 - Spring Boot
 - Hibernate
@@ -21,9 +21,9 @@
 - Spring test
 - Docker
 
-## Wymagania
+##Requirements
 
-- Java 17 lub nowsza
+- Java 17 or later
 - Gradle
 
 ## Start

@@ -1,0 +1,16 @@
+Creational
+* builder - Builder
+* Singleton - LessonController
+* prototype - Lesson
+
+Structural
+* DAO - DaoAlbum, DaoLesson
+* MVC - Lesson, Greatingview, LessonController
+* ORM - ORM
+* Decorator - MyUserDetails, User
+* Flyweight - LessonInfo
+* Proxy - MyUserDetailServer
+
+Behavioral
+* State - MyUserDetails
+* Chain of Responsibility - SecurityConfig
