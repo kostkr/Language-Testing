@@ -8,17 +8,30 @@
     <title>Create Lesson</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+        .navbar {
+            --bs-bg-opacity: 1;
+            background-color: lightblue; /* Change this line to the desired color */
+        }
     .navbar {
         margin-bottom: 0;
         border-radius: 0;
     }
-    .row.content {height: 1000px}
+    .row.content {
+         height: 100vh;
+    }
 
     .sidenav {
         padding-top: 20px;
-        background-color: #f1f1f1;
         height: 100%;
+        background: linear-gradient(to bottom, #f1f1f1 0%, #ffffff 100%);
     }
+
+    .middle {
+        padding-top: 0px;
+        height: 100%;
+        background: linear-gradient(to bottom, #3498db -10%, #ffffff 120%);
+    }
+
     @media screen and (max-width: 767px) {
         .sidenav {
             height: auto;
@@ -28,7 +41,7 @@
     }
     </style>
 </head>
-<body>
+<body class="middle">
 <th:replace th:replace="~{header :: common-header}"></th:replace>
 
 <div class="container-fluid">
@@ -130,7 +143,7 @@
             answerInput.name = 'answers[]';
             answerInput.placeholder = 'Correct Answer for Question ' + i;
             container.appendChild(answerInput);
-
+            //
             // var answerInput2 = document.createElement('input');
             // answerInput2.type = 'text';
             // answerInput2.className = 'form-control mt-2';

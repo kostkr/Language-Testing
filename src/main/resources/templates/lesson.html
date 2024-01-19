@@ -8,6 +8,31 @@
     <title>Lesson Details</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
+        .mb-2 {
+            /* margin-bottom: 0.5rem!important; */
+        }
+        .auto-resizable-iframe {
+            max-width: 1220px;
+            margin: 0px auto;
+        }
+
+        .auto-resizable-iframe > div {
+            position: relative;
+            padding-bottom: 75%;
+            height: 0px;
+        }
+
+        .auto-resizable-iframe iframe {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        #nav {
+            position:fixed;
+        }
 
         .custom-border {
             border: 2px solid;
@@ -19,13 +44,24 @@
             margin-bottom: 0;
             border-radius: 0;
         }
-        .row.content {height: 1000px}
+
+        .row.content {
+            height: 100vh;
+        }
+
 
         .sidenav {
             padding-top: 20px;
-            background-color: #f1f1f1;
             height: 100%;
+            background: linear-gradient(to bottom, #f1f1f1 0%, #ffffff 100%);
         }
+
+        .middle {
+            padding-top: 0px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3498db -10%, #ffffff 120%);
+        }
+
         @media screen and (max-width: 767px) {
             .sidenav {
                 height: auto;
@@ -33,21 +69,22 @@
             }
             .row.content {height:auto;}
         }
+
     </style>
 </head>
-<body>
+<body class="middle">
 <th:replace th:replace="~{header :: common-header}"></th:replace>
 
 <div class="container-fluid">
-    <div class="row content">
+    <div class="row content d-flex">
 
-        <div class="col-sm-2 sidenav" style="
+        <div class="col-sm-2 sidenav d-flex flex-column" style="
     padding-left: 0px;
     padding-top: 0px;
     padding-right: 0px;
 ">
         </div>
-<div class="col-sm-8 text-left">
+<div class="col-sm-8 text-left flex-fill">
 <div class="container">
     <div class="p-3 mb-2 bg-warning text-dark"
          th:text="${lesson.getLessonInfo().getName() + ' - ' + (lesson.getLessonInfo().getLevel() != null ? lesson.getLessonInfo().getLevel() : '') + ' ' + (lesson.getLessonInfo().getType() != null ? lesson.getLessonInfo().getType() : '')}"></div>
@@ -63,12 +100,16 @@
     <hr>
 
     <div th:if="${lesson.getLessonInfo().getType() == 'Listening'}">
+        <div  class="auto-resizable-iframe" >
+            <div>
         <iframe width="1220" height="720"
                 th:src="${lesson.getLessonInfo().getOpt()}"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen>
         </iframe>
+            </div>
+        </div>
     </div>
 
     <div th:if="${lesson.getLessonInfo().getType() == 'Reading'}">
@@ -81,6 +122,7 @@
         </div>
     </div>
 
+
     <div th:if="${lesson.getLessonInfo().getType() == 'Writing'}">
         <div class="container mt-5">
             <div class="card custom-border">
@@ -90,7 +132,12 @@
             </div>
         </div>
         <hr>
-        <textarea id="writingArea" name="writingArea" rows="40" cols="162" required></textarea>
+
+        <div  class="auto-resizable-iframe" >
+            <div>
+        <textarea  class="form-control" style="min-width: 100%" id="writingArea" name="writingArea" rows="38" cols="162" required></textarea>
+            </div>
+        </div>
     </div>
 
 
@@ -106,6 +153,7 @@
 
                 <script th:inline="javascript">
                     var questionsArray = /*[[${lesson.getQuestions()}]]*/ [];
+                    var Answers = /*[[${allAnswers}]]*/ [];
 
                     function showAndAnswerQuestions() {
 
@@ -191,7 +239,7 @@
 </div>
 </div>
 
-        <div class="col-sm-2 sidenav" style="
+        <div class="col-sm-2 sidenav d-flex flex-column" style="
     padding-left: 0px;
     padding-top: 0px;
     padding-right: 0px;
