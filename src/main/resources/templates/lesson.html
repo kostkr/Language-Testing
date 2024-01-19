@@ -89,92 +89,104 @@
                 </div>
             </div>
         </div>
+        <hr>
         <textarea id="writingArea" name="writingArea" rows="40" cols="162" required></textarea>
     </div>
 
-    <h3>Exercise</h3>
-    <p th:text="${lesson.getTask()}"></p>
 
-    <div id="result"></div>
+    <div class="container mt-5">
+        <div class="card custom-border">
+            <div class="card-body">
+                <h3>Exercise</h3>
+                <p th:text="${lesson.getTask()}"></p>
 
-    <button type="button" class="btn btn-primary" onclick="checkAnswers()">Check Answers</button>
+                <div id="result"></div>
 
-    <script th:inline="javascript">
-        var questionsArray = /*[[${lesson.getQuestions()}]]*/ [];
+                <button type="button" class="btn btn-primary" onclick="checkAnswers()">Check Answers</button>
 
-        function showAndAnswerQuestions() {
+                <script th:inline="javascript">
+                    var questionsArray = /*[[${lesson.getQuestions()}]]*/ [];
 
-            var ulElement = document.createElement('ul');
+                    function showAndAnswerQuestions() {
 
-            // show questions
-            questionsArray.forEach(function(question, index) {
-                var liElement = document.createElement('li');
-                liElement.textContent = (index + 1) + ". " + question;
+                        var ulElement = document.createElement('ul');
 
-                var lineBreak = document.createElement('br');
-                liElement.appendChild(lineBreak);
+                        // show questions
+                        questionsArray.forEach(function(question, index) {
+                            var liElement = document.createElement('li')
+                            liElement.style.fontSize = '18px';
 
-                // add field to answers
-                var answerInput = document.createElement('input');
-                answerInput.type = 'text';
-                answerInput.placeholder = 'Your Answer...';
-                answerInput.id = 'answer' + (index + 1);
-                liElement.appendChild(answerInput);
+                            liElement.textContent = (index + 1) + ". " + question;
 
-                ulElement.appendChild(liElement);
-            });
+                            var lineBreak = document.createElement('br');
+                            liElement.appendChild(lineBreak);
 
-            var resultDiv = document.getElementById('result');
+                            // add field to answers
+                            var answerInput = document.createElement('input');
+                            answerInput.type = 'text';
+                            answerInput.placeholder = 'Your Answer...';
+                            answerInput.id = 'answer' + (index + 1);
+                            liElement.appendChild(answerInput);
 
-            resultDiv.innerHTML = '';
+                            ulElement.appendChild(liElement);
+                        });
 
-            resultDiv.appendChild(ulElement);
-        }
+                        var resultDiv = document.getElementById('result');
 
-        function checkAnswers() {
-            var resultDiv = document.getElementById('result');
-            var answersArray = /*[[${lesson.getAnswers()}]]*/ [];
-            var userAnswers = [];
-            var correctCount = 0;
+                        resultDiv.innerHTML = '';
 
-            // check user's answer
-            for (var i = 1; i <= answersArray.length; i++) {
-                var answerInput = document.getElementById('answer' + i);
-                if (answerInput) {
-                    userAnswers.push(answerInput.value);
-
-                    if (answerInput.value === answersArray[i - 1]) {
-                        correctCount++;
+                        resultDiv.appendChild(ulElement);
                     }
-                }
-            }
 
-            // show questions and answers
-            var resultHTML = '<h3>Questions:</h3>';
-            for (var i = 0; i < answersArray.length; i++) {
-                resultHTML += '<p><strong>Question ' + (i + 1) + ':</strong> ' + questionsArray[i] + '<br>';
-                resultHTML += '<strong>Your Answer:</strong> ' + (userAnswers[i].length >= 1 ? userAnswers[i] : 'Not answered');
+                    function checkAnswers() {
+                        var resultDiv = document.getElementById('result');
+                        var answersArray = /*[[${lesson.getAnswers()}]]*/ [];
+                        var userAnswers = [];
+                        var correctCount = 0;
 
-                // check answers and show result
-                if (i < answersArray.length) {
-                    resultHTML += ' - <span style="color: ' + (userAnswers[i] === answersArray[i] ? 'green' : 'red') + '">'
-                        + (userAnswers[i] === answersArray[i] ? 'Correct' : 'Incorrect') + '</span><br>';
-                }
+                        // check user's answer
+                        for (var i = 1; i <= answersArray.length; i++) {
+                            var answerInput = document.getElementById('answer' + i);
+                            if (answerInput) {
+                                userAnswers.push(answerInput.value);
 
-                resultHTML += '<strong>Correct Answer:</strong> ' + answersArray[i] + '<br>'
+                                if (answerInput.value === answersArray[i - 1]) {
+                                    correctCount++;
+                                }
+                            }
+                        }
 
-                resultHTML += '</p>';
-            }
+                        // show questions and answers
+                        var resultHTML = '<h3>Questions:</h3>';
+                        for (var i = 0; i < answersArray.length; i++) {
+                            resultHTML += '<p><strong>Question ' + (i + 1) + ':</strong> ' + questionsArray[i] + '<br>';
+                            resultHTML += '<strong>Your Answer:</strong> ' + (userAnswers[i].length >= 1 ? userAnswers[i] : 'Not answered');
 
-            resultDiv.innerHTML = resultHTML;
+                            // check answers and show result
+                            if (i < answersArray.length) {
+                                resultHTML += ' - <span style="color: ' + (userAnswers[i] === answersArray[i] ? 'green' : 'red') + '">'
+                                    + (userAnswers[i] === answersArray[i] ? 'Correct' : 'Incorrect') + '</span><br>';
+                            }
 
-            resultDiv.innerHTML += '<p><strong>Total Correct Answers:</strong> ' + correctCount + '</p>';
-        }
+                            resultHTML += '<strong>Correct Answer:</strong> ' + answersArray[i] + '<br>'
 
-        window.onload = function() {
-            showAndAnswerQuestions();
-        };
-    </script>
+                            resultHTML += '</p>';
+                        }
+
+                        resultDiv.innerHTML = resultHTML;
+
+                        resultDiv.innerHTML += '<p><strong>Total Correct Answers:</strong> ' + correctCount + '</p>';
+                    }
+
+                    window.onload = function() {
+                        showAndAnswerQuestions();
+                    };
+                </script>
+            </div>
+        </div>
+    </div>
+    <br>
+
 
 </div>
 </div>

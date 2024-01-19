@@ -3,6 +3,7 @@ package com.WebSite.demo.web;
 import com.WebSite.demo.dataBase.LessonDao;
 import com.WebSite.demo.model.Lesson;
 import com.WebSite.demo.model.LessonInfo;
+import com.WebSite.demo.model.YoutubeUrlConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +46,9 @@ public class CreateLessonController {
             //@RequestParam("wrongAnswers2[]") String[] wrongAnswersArray2),
             //@RequestParam("wrongAnswers3[]") String[] wrongAnswersArray3)
     {
+        if(type.equals("Listening")){
+            opt = YoutubeUrlConverter.generateEmbeddedUrl(opt);
+        }
         LessonInfo lessonInfo = LessonInfo.builder()
                 .name(name)
                 .level(level)
