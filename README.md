@@ -27,4 +27,5 @@
 - Gradle
 
 ## Start
-WebSiteApplication.java
+1) start docker
+2) start WebSiteApplication.java
