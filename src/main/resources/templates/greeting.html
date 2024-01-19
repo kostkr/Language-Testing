@@ -5,10 +5,186 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Test your english</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .custom-card {
+            border-radius: 10px;
+            transition: transform 0.3s;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .custom-card:hover {
+            transform: scale(1.05);
+        }
+
+        .custom-button {
+            width: 32%;
+            height: 50px;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .large-button {
+            width: calc(100% + 10px);
+            height: 100px;
+            font-size: 28px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box-text {
+            font-size: 32px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .box-image {
+            width: 100%;
+            height: 225px;
+            object-fit: cover;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
 <th:replace th:replace="~{header :: common-header}"></th:replace>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-2 sidenav" style="
+            padding-left: 0px;
+            padding-top: 0px;
+            padding-right: 0px;
+            ">
+        </div>
+        <div class="col-sm-8 text-left">
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center align-items-center">
+
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 custom-card">
+                <div class="card-header">
+                    <h5 class="card-title box-text">Grammar</h5>
+                    <img src="https://th.bing.com/th/id/OIG.OGGQcxEoNy0rtZD.W.QH?pid=ImgGn" alt="Image" class="box-image">
+                </div>
+                <div class="card-body">
+                    <a href="/album?type=Grammar&level=A1" class="btn btn-primary custom-button" target="_blank">A1</a>
+                    <a href="/album?type=Grammar&level=A2" class="btn btn-primary custom-button" target="_blank">A2</a>
+                    <a href="/album?type=Grammar&level=B1" class="btn btn-primary custom-button" target="_blank">B1</a>
+                    <a href="/album?type=Grammar&level=B2" class="btn btn-primary custom-button" target="_blank">B2</a>
+                    <a href="/album?type=Grammar&level=C1" class="btn btn-primary custom-button" target="_blank">C1</a>
+                    <a href="/album?type=Grammar&level=C2" class="btn btn-primary custom-button" target="_blank">C2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 custom-card">
+                <div class="card-header">
+                    <h5 class="card-title box-text">Vocabulary</h5>
+                    <img src="https://th.bing.com/th/id/OIG..TYD166lzHf069y32Buh?pid=ImgGn" alt="Image" class="box-image">
+                </div>
+                <div class="card-body">
+                    <a href="/album?type=Vocabulary&level=A1" class="btn btn-primary custom-button" target="_blank">A1</a>
+                    <a href="/album?type=Vocabulary&level=A2" class="btn btn-primary custom-button" target="_blank">A2</a>
+                    <a href="/album?type=Vocabulary&level=B1" class="btn btn-primary custom-button" target="_blank">B1</a>
+                    <a href="/album?type=Vocabulary&level=B2" class="btn btn-primary custom-button" target="_blank">B2</a>
+                    <a href="/album?type=Vocabulary&level=C1" class="btn btn-primary custom-button" target="_blank">C1</a>
+                    <a href="/album?type=Vocabulary&level=C2" class="btn btn-primary custom-button" target="_blank">C2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 custom-card">
+                <div class="card-header">
+                    <h5 class="card-title box-text">Listening</h5>
+                    <img src="https://th.bing.com/th/id/OIG.MMcnB_ZCEKkLykS97I_P?pid=ImgGn" alt="Image" class="box-image">
+                </div>
+                <div class="card-body">
+                    <a href="/album?type=Listening&level=A1" class="btn btn-primary custom-button" target="_blank">A1</a>
+                    <a href="/album?type=Listening&level=A2" class="btn btn-primary custom-button" target="_blank">A2</a>
+                    <a href="/album?type=Listening&level=B1" class="btn btn-primary custom-button" target="_blank">B1</a>
+                    <a href="/album?type=Listening&level=B2" class="btn btn-primary custom-button" target="_blank">B2</a>
+                    <a href="/album?type=Listening&level=C1" class="btn btn-primary custom-button" target="_blank">C1</a>
+                    <a href="/album?type=Listening&level=C2" class="btn btn-primary custom-button" target="_blank">C2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 custom-card">
+                <div class="card-header">
+                    <h5 class="card-title box-text">Reading</h5>
+                    <img src="https://th.bing.com/th/id/OIG.Metq3Gho.DTzyZlDdHjK?pid=ImgGn" alt="Image" class="box-image">
+                </div>
+                <div class="card-body">
+                    <a href="/album?type=Reading&level=A1" class="btn btn-primary custom-button" target="_blank">A1</a>
+                    <a href="/album?type=Reading&level=A2" class="btn btn-primary custom-button" target="_blank">A2</a>
+                    <a href="/album?type=Reading&level=B1" class="btn btn-primary custom-button" target="_blank">B1</a>
+                    <a href="/album?type=Reading&level=B2" class="btn btn-primary custom-button" target="_blank">B2</a>
+                    <a href="/album?type=Reading&level=C1" class="btn btn-primary custom-button" target="_blank">C1</a>
+                    <a href="/album?type=Reading&level=C2" class="btn btn-primary custom-button" target="_blank">C2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 custom-card">
+                <div class="card-header">
+                    <h5 class="card-title box-text">Writing</h5>
+                    <img src="https://th.bing.com/th/id/OIG.Hjcg2iMEQ9BBLPb3uS6T?pid=ImgGn" alt="Image" class="box-image">
+                </div>
+                <div class="card-body">
+                    <a href="/album?type=Writing&level=A1" class="btn btn-primary custom-button" target="_blank">A1</a>
+                    <a href="/album?type=Writing&level=A2" class="btn btn-primary custom-button" target="_blank">A2</a>
+                    <a href="/album?type=Writing&level=B1" class="btn btn-primary custom-button" target="_blank">B1</a>
+                    <a href="/album?type=Writing&level=B2" class="btn btn-primary custom-button" target="_blank">B2</a>
+                    <a href="/album?type=Writing&level=C1" class="btn btn-primary custom-button" target="_blank">C1</a>
+                    <a href="/album?type=Writing&level=C2" class="btn btn-primary custom-button" target="_blank">C2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 custom-card">
+                <div class="card-header">
+                    <h5 class="card-title box-text">Create Lesson</h5>
+                    <img src="https://th.bing.com/th/id/OIG.I4wd1lLkKXLMkEqsknnK?pid=ImgGn" alt="Image" class="box-image">
+                </div>
+                <div class="card-body">
+                    <a href="/createLesson" class="btn btn-primary large-button" target="_blank">Create Lesson</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="col-sm-2 sidenav" style="
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+">
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

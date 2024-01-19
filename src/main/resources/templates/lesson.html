@@ -7,20 +7,63 @@
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <title>Lesson Details</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+
+        .custom-border {
+            border: 2px solid;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        .row.content {height: 1000px}
+
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {height:auto;}
+        }
+    </style>
 </head>
 <body>
 <th:replace th:replace="~{header :: common-header}"></th:replace>
 
+<div class="container-fluid">
+    <div class="row content">
+
+        <div class="col-sm-2 sidenav" style="
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+">
+        </div>
+<div class="col-sm-8 text-left">
 <div class="container">
     <div class="p-3 mb-2 bg-warning text-dark"
          th:text="${lesson.getLessonInfo().getName() + ' - ' + (lesson.getLessonInfo().getLevel() != null ? lesson.getLessonInfo().getLevel() : '') + ' ' + (lesson.getLessonInfo().getType() != null ? lesson.getLessonInfo().getType() : '')}"></div>
 
-    <h2 th:text="${lesson.getLessonInfo().getName()}"></h2>
-    <p th:text="${lesson.getLessonInfo().getDescription()}"></p>
+    <div class="container mt-5">
+        <div class="card custom-border">
+            <div class="card-body">
+            <h2 class="card-title" th:text="${lesson.getLessonInfo().getName()}"></h2>
+            <p class="card-text" th:text="${lesson.getLessonInfo().getDescription()}"></p>
+            </div>
+        </div>
+    </div>
     <hr>
 
     <div th:if="${lesson.getLessonInfo().getType() == 'Listening'}">
-        <iframe width="1280" height="720"
+        <iframe width="1220" height="720"
                 th:src="${lesson.getLessonInfo().getOpt()}"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -29,20 +72,32 @@
     </div>
 
     <div th:if="${lesson.getLessonInfo().getType() == 'Reading'}">
-        <p th:text="${lesson.getLessonInfo().getOpt()}"></p>
+        <div class="container mt-5">
+            <div class="card custom-border">
+                <div class="card-body">
+                    <p th:text="${lesson.getLessonInfo().getOpt()}"></p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div th:if="${lesson.getLessonInfo().getType() == 'Writing'}">
-        <p th:text="${lesson.getLessonInfo().getOpt()}"></p>
+        <div class="container mt-5">
+            <div class="card custom-border">
+                <div class="card-body">
+                    <p th:text="${lesson.getLessonInfo().getOpt()}"></p>
+                </div>
+            </div>
+        </div>
+        <textarea id="writingArea" name="writingArea" rows="40" cols="162" required></textarea>
     </div>
-
 
     <h3>Exercise</h3>
     <p th:text="${lesson.getTask()}"></p>
 
     <div id="result"></div>
 
-    <button onclick="checkAnswers()">Check Answers</button>
+    <button type="button" class="btn btn-primary" onclick="checkAnswers()">Check Answers</button>
 
     <script th:inline="javascript">
         var questionsArray = /*[[${lesson.getQuestions()}]]*/ [];
@@ -55,6 +110,9 @@
             questionsArray.forEach(function(question, index) {
                 var liElement = document.createElement('li');
                 liElement.textContent = (index + 1) + ". " + question;
+
+                var lineBreak = document.createElement('br');
+                liElement.appendChild(lineBreak);
 
                 // add field to answers
                 var answerInput = document.createElement('input');
@@ -76,31 +134,31 @@
         function checkAnswers() {
             var resultDiv = document.getElementById('result');
             var answersArray = /*[[${lesson.getAnswers()}]]*/ [];
-
+            var userAnswers = [];
             var correctCount = 0;
 
             // check user's answer
             for (var i = 1; i <= answersArray.length; i++) {
                 var answerInput = document.getElementById('answer' + i);
                 if (answerInput) {
-                    var userAnswer = answerInput.value;
+                    userAnswers.push(answerInput.value);
 
-                    if (userAnswer === answersArray[i - 1]) {
+                    if (answerInput.value === answersArray[i - 1]) {
                         correctCount++;
                     }
                 }
             }
 
             // show questions and answers
-            var resultHTML = '<h3>Questions and Your Answers:</h3>';
+            var resultHTML = '<h3>Questions:</h3>';
             for (var i = 0; i < answersArray.length; i++) {
                 resultHTML += '<p><strong>Question ' + (i + 1) + ':</strong> ' + questionsArray[i] + '<br>';
-                resultHTML += '<strong>Your Answer:</strong> ' + (i < userAnswer.length ? userAnswer[i] : 'Not answered');
+                resultHTML += '<strong>Your Answer:</strong> ' + (userAnswers[i].length >= 1 ? userAnswers[i] : 'Not answered');
 
                 // check answers and show result
                 if (i < answersArray.length) {
-                    resultHTML += ' - <span style="color: ' + (userAnswer === answersArray[i] ? 'green' : 'red') + '">'
-                        + (userAnswer === answersArray[i] ? 'Correct' : 'Incorrect') + '</span><br>';
+                    resultHTML += ' - <span style="color: ' + (userAnswers[i] === answersArray[i] ? 'green' : 'red') + '">'
+                        + (userAnswers[i] === answersArray[i] ? 'Correct' : 'Incorrect') + '</span><br>';
                 }
 
                 resultHTML += '<strong>Correct Answer:</strong> ' + answersArray[i] + '<br>'
@@ -113,13 +171,21 @@
             resultDiv.innerHTML += '<p><strong>Total Correct Answers:</strong> ' + correctCount + '</p>';
         }
 
-
-        // invoke function
         window.onload = function() {
             showAndAnswerQuestions();
         };
     </script>
 
+</div>
+</div>
+
+        <div class="col-sm-2 sidenav" style="
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+">
+</div>
+</div>
 </div>
 
 </body>

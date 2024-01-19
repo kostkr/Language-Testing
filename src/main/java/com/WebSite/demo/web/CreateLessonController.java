@@ -25,6 +25,9 @@ public class CreateLessonController {
      * @param task
      * @param questionsArray
      * @param answersArray
+     //* @param wrongAnswersArray1
+     //* @param wrongAnswersArray2
+     //* @param wrongAnswersArray3
      * @return
      */
     @PostMapping
@@ -38,6 +41,9 @@ public class CreateLessonController {
             @RequestParam("task") String task,
             @RequestParam("questions[]") String[] questionsArray,
             @RequestParam("answers[]") String[] answersArray)
+            //@RequestParam("wrongAnswers1[]") String[] wrongAnswersArray1),
+            //@RequestParam("wrongAnswers2[]") String[] wrongAnswersArray2),
+            //@RequestParam("wrongAnswers3[]") String[] wrongAnswersArray3)
     {
         LessonInfo lessonInfo = LessonInfo.builder()
                 .name(name)
