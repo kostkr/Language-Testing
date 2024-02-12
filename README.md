@@ -1,4 +1,4 @@
-# webSite
+# English test
 
 ## Features
 
@@ -16,16 +16,22 @@
 - Hibernate
 - Spring Security
 - Thymeleaf
-- HTML, CSS, JavaScript
+- HTML, CSS, JavaScript, Bootstrap
 - Junit
 - Spring test
-- Docker
+- Docker, Docker-compose
 
-##Requirements
+##System Requirements
 
 - Java 17 or later
 - Gradle
+- Docker
 
-## Start
-1) start docker
-2) start WebSiteApplication.java
+## Quick Start Guide
+
+- Run WebSiteApplication:
+  Within the project structure, find the WebSiteApplication.java file.
+  Select the "Run" option to initiate the platform.
+
+- Access the Platform:Once the application has started, open your web browser.
+  Navigate to the specified local address (usually http://localhost:8080) to access the platform.
