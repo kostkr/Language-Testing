@@ -1,4 +1,4 @@
-package com.WebSite.demo.config;
+package com.WebSite.demo.configuration;
 
 import com.WebSite.demo.model.MyUserDetailService;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfiguration {
     @Bean
     public UserDetailsService userDetailsService(){
         return new MyUserDetailService();
