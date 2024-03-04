@@ -1,0 +1,18 @@
+.navbar {
+    --bs-bg-opacity: 1;
+}
+
+.mb-2 {
+    margin-bottom: 0;
+}
+
+.navbar-nav .nav-link {
+    font-size: 19px;
+    padding: 8px 12px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.navbar-toggler-icon {
+    background-color: #adb5bd;
+}
