@@ -53,4 +53,10 @@ public class UserDao {
         if(userToRemove != null)
             em.remove(userToRemove);
     }
+
+    @Transactional(readOnly = true)
+    public boolean exists(Long userId) {
+        User user = read(userId);
+        return user != null;
+    }
 }

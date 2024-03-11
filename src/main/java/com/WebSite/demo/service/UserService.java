@@ -54,4 +54,36 @@ public class UserService {
     userDao.delete(userId);
     }
 
+    /**
+     * create new user
+     * @param name
+     * @param email
+     * @param password
+     */
+    private void register(String name, String email, String password, String role){
+        User newUser = User.builder()
+                .name(name)
+                .email(email)
+                .password(password)
+                .role(role)
+                .isEnabled(true)
+                .isAccountNonLocked(true)
+                .isCredentialsNonExpired(true)
+                .isAccountNonExpired(true)
+                .build();
+
+        register(newUser);
+    }
+
+    public void registerUser(String name, String email, String password){
+        register(name, email, password, "ROLE_USER");
+    }
+
+    public void registerAdmin(String name, String email, String password){
+        register(name, email, password, "ROLE_ADMIN");
+    }
+
+    public boolean exists(Long userId){
+        return userDao.exists(userId);
+    }
 }

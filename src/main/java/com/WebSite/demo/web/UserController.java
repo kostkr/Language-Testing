@@ -39,18 +39,7 @@ public class UserController {
     public String signUpUser(@RequestParam("name") String name,
                              @RequestParam("email") String email,
                              @RequestParam("password") String password){
-        User newUser = User.builder()
-                .name(name)
-                .email(email)
-                .password(password)
-                .role("ROLE_USER")
-                .isEnabled(true)
-                .isAccountNonLocked(true)
-                .isCredentialsNonExpired(true)
-                .isAccountNonExpired(true)
-                .build();
-
-        userService.register(newUser);
+        userService.registerUser(name, email, password);
         return "login";
     }
 }
