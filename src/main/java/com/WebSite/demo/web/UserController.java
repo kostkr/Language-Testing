@@ -1,6 +1,5 @@
 package com.WebSite.demo.web;
 
-import com.WebSite.demo.model.User;
 import com.WebSite.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

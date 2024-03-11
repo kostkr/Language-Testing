@@ -86,4 +86,12 @@ public class UserService {
     public boolean exists(Long userId){
         return userDao.exists(userId);
     }
+
+    public void lock(Long userId){
+        userDao.lock(userId);
+    }
+
+    public void unlock(Long userId){
+        userDao.unlock(userId);
+    }
 }

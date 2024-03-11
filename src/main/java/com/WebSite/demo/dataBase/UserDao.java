@@ -59,4 +59,18 @@ public class UserDao {
         User user = read(userId);
         return user != null;
     }
+
+    @Transactional
+    public void lock(Long userId){
+        User user = read(userId);
+        if(user != null)
+            user.setAccountNonLocked(false);
+    }
+
+    @Transactional
+    public void unlock(Long userId){
+        User user = read(userId);
+        if(user != null)
+            user.setAccountNonLocked(true);
+    }
 }

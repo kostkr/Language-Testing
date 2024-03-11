@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LessonController {
@@ -30,5 +31,17 @@ public class LessonController {
         Lesson lesson = lessonDao.findLessonById(id);
         model.addAttribute("lesson", lesson);
         return "lesson";
+    }
+
+    /**
+     * search lesson and show user if it exists
+     * @param lessonName
+     * @return /lesson/{id}
+     */
+    @GetMapping("/searchLesson")
+    public String searchLesson(@RequestParam("name") String lessonName){
+        Long lessonId = lessonDao.findLessonByName(lessonName);
+
+        return lessonId != null ? "redirect:/lesson/" + lessonId : "greeting";
     }
 }
