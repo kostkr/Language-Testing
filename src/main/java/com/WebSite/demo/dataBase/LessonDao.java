@@ -2,52 +2,43 @@ package com.WebSite.demo.dataBase;
 
 import com.WebSite.demo.model.Lesson;
 import com.WebSite.demo.model.LessonInfo;
-import org.hibernate.Session;
+import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Repository
 public class LessonDao {
-    public static void addLesson(Lesson lesson, LessonInfo lessonInfo){
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
 
-            session.persist(lesson);
+    private final EntityManager em;
 
-            lessonInfo.setId(lesson.getId());
-            lesson.setLessonInfo(lessonInfo);
-            session.persist(lessonInfo);
-
-            session.getTransaction().commit();
-            System.out.println("lesson added");
-        }catch (Exception e){
-            System.err.println("lesson not added");
-        }
-
-
+    @Autowired
+    public LessonDao(EntityManager entityManager) {
+        this.em = entityManager;
     }
 
-    public static Lesson findLessonById(long lessonId){// return null if lesson doesn't exit
-        Lesson lesson = null;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            lesson = session.get(Lesson.class, lessonId);
-            session.getTransaction().commit();
-        }catch (Exception e){
-            System.err.println("lesson not found");
-        }
-        return lesson;
+    @Transactional
+    public void addLesson(Lesson lesson, LessonInfo lessonInfo) {
+        em.persist(lesson);
+
+        lessonInfo.setId(lesson.getId());
+        lesson.setLessonInfo(lessonInfo);
+        em.persist(lessonInfo);
+
+        System.out.println("lesson added");
     }
 
-    public static Long findLessonByName(String name){
-        LessonInfo lessonInfo = null;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            lessonInfo = session.createQuery("FROM lesson_info WHERE name = :name", LessonInfo.class)
-                            .setParameter("name", name)
-                            .setMaxResults(1)
-                            .uniqueResult();
-            session.getTransaction().commit();
-        }catch (Exception e){
-            System.err.println("lesson not found");
-        }
+    @Transactional(readOnly = true)
+    public Lesson findLessonById(long lessonId) {
+        return em.find(Lesson.class, lessonId);
+    }
+
+    @Transactional(readOnly = true)
+    public Long findLessonByName(String name) {
+        LessonInfo lessonInfo = em.createQuery("FROM LessonInfo WHERE name = :name", LessonInfo.class)
+                .setParameter("name", name)
+                .setMaxResults(1)
+                .getSingleResult();
 
         return lessonInfo != null ? lessonInfo.getId() : null;
     }

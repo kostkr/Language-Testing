@@ -2,27 +2,33 @@ package com.WebSite.demo.web;
 
 import com.WebSite.demo.dataBase.LessonDao;
 import com.WebSite.demo.model.Lesson;
-import com.WebSite.demo.model.Answers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
-
 @Controller
 public class LessonController {
+
+    private final LessonDao lessonDao;
+
+    @Autowired
+    public LessonController(LessonDao lessonDao) {
+        this.lessonDao = lessonDao;
+    }
+
     /**
-     * show lesson to user
-     * @param id lesson id
-     * @return lesson
+     * Show lesson to the user.
+     *
+     * @param id    Lesson ID
+     * @param model Model to add attributes
+     * @return Lesson template
      */
     @GetMapping("/lesson/{id}")
-    public String showLesson(@PathVariable("id") long id, Model model){
-        Lesson lesson = LessonDao.findLessonById(id);
-        model.addAttribute(lesson);
-        //List<Answers> allAnswers = Answers.createAnswersList( lesson.getAnswers() );
-        //model.addAttribute(allAnswers);
-        return "lesson.html";
+    public String showLesson(@PathVariable("id") long id, Model model) {
+        Lesson lesson = lessonDao.findLessonById(id);
+        model.addAttribute("lesson", lesson);
+        return "lesson";
     }
 }

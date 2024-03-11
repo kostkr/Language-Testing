@@ -4,6 +4,7 @@ import com.WebSite.demo.dataBase.LessonDao;
 import com.WebSite.demo.model.Lesson;
 import com.WebSite.demo.model.LessonInfo;
 import com.WebSite.demo.model.YoutubeUrlConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,14 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 @Controller
 @RequestMapping("/createLesson")
 public class CreateLessonController {
+
+    private final LessonDao lessonDao;
+
+    @Autowired
+    public CreateLessonController(LessonDao lessonDao) {
+        this.lessonDao = lessonDao;
+    }
+
     /**
      * save new lesson
      * @param name
@@ -87,13 +96,13 @@ public class CreateLessonController {
                 .answers(new ArrayList<>(List.of(answersArray)))
                 .build();
 
-        LessonDao.addLesson(lesson, lessonInfo);
+        lessonDao.addLesson(lesson, lessonInfo);
 
-        return "createLesson.html";
+        return "createLesson";
     }
 
     @GetMapping
     public String showCreateTestPage(){
-        return "createLesson.html";
+        return "createLesson";
     }
 }

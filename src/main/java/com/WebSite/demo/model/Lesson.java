@@ -16,8 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity(name = "lesson")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Entity
+@Table(name = "lesson")
 public class Lesson{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +30,11 @@ public class Lesson{
     @JoinColumn(name = "lesson_info_id")
     private LessonInfo lessonInfo;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "lesson_questions", joinColumns = @JoinColumn(name = "lesson_id"))
     private List<String> questions;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "lesson_answers", joinColumns = @JoinColumn(name = "lesson_id"))
     private List<String> answers;
 }

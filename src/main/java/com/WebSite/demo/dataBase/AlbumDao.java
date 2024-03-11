@@ -2,25 +2,36 @@ package com.WebSite.demo.dataBase;
 
 import com.WebSite.demo.model.Album;
 import com.WebSite.demo.model.LessonInfo;
-import org.hibernate.Session;
+import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
+@Repository
 public class AlbumDao {
-    public static Album getAlbumsByTypeLevel(String type, String level){
-        Album album = null;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
 
-            String hql ="SELECT l FROM lesson_info l WHERE l.type = :type and l.level = :level";
-            List<LessonInfo> lessonInfoList = session.createQuery(hql, LessonInfo.class)
+    private final EntityManager em;
+
+    @Autowired
+    public AlbumDao(EntityManager entityManager) {
+        this.em = entityManager;
+    }
+
+    @Transactional
+    public Album getAlbumsByTypeLevel(String type, String level) {
+        Album album = null;
+        try {
+            String hql = "SELECT l FROM LessonInfo l WHERE l.type = :type and l.level = :level";
+            List<LessonInfo> lessonInfoList = em.createQuery(hql, LessonInfo.class)
                     .setParameter("type", type)
                     .setParameter("level", level)
                     .getResultList();
 
             album = new Album(type, level, lessonInfoList);
-            session.getTransaction().commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println("err get Album");
         }
 

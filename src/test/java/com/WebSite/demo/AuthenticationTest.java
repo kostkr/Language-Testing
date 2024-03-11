@@ -1,7 +1,7 @@
 package com.WebSite.demo;
 
 import com.WebSite.demo.dataBase.UserDao;
-import com.WebSite.demo.model.MyUserDetailService;
+import com.WebSite.demo.service.MyUserDetailService;
 import com.WebSite.demo.model.MyUserDetails;
 import com.WebSite.demo.model.User;
 import org.junit.jupiter.api.AfterAll;

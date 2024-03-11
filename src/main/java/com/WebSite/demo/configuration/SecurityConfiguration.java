@@ -1,6 +1,6 @@
 package com.WebSite.demo.configuration;
 
-import com.WebSite.demo.model.MyUserDetailService;
+import com.WebSite.demo.service.MyUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -31,24 +31,25 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    public AuthenticationProvider MyauthenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll()
-                        .requestMatchers("/mylessons").authenticated()
-                        .requestMatchers("mylessons/**"))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/mylesson/**").hasRole("USER")
+                        .anyRequest().permitAll())
                 .formLogin(login -> login
                         .loginPage("/login")
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll)
                 .build();
-    }
-
-    @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService());
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
     }
 }

@@ -1,35 +1,56 @@
 package com.WebSite.demo.dataBase;
 
 import com.WebSite.demo.model.User;
-import org.hibernate.Session;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+@Repository
 public class UserDao {
-    public static void addUser(User user){
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            session.persist(user);
-            session.getTransaction().commit();
-            System.out.println("user added");
-        }catch (Exception e){
-            System.err.println("err add user");
-        }
+
+    private final EntityManager em;
+    private final PasswordEncoder encoder;
+
+    @Autowired
+    public UserDao(EntityManager entityManager, PasswordEncoder passwordEncoder) {
+        this.em = entityManager;
+        this.encoder = passwordEncoder;
     }
 
-    public static User findByName(String name){// return null if lesson doesn't exit
-        User user = null;
-        try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.beginTransaction();
-            user = session.createQuery("FROM users WHERE name = :name", User.class)
-                    .setParameter("name", name)
-                    .uniqueResult();
-            session.getTransaction().commit();
-        }catch (Exception e){
-            System.err.println("user not found");
-        }
-        return user;
+    @Transactional
+    public void register(User user) {
+        user.setPassword(this.encoder.encode(user.getPassword()));
+        em.persist(user);
+
+        System.out.println("user has registered: " + user.getName());
+    }
+
+    @Transactional(readOnly = true)
+    public User read(String name) {
+        return em.createQuery("FROM User WHERE name = :name", User.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
+
+    @Transactional(readOnly = true)
+    public User read(Long userId) {
+        return em.createQuery("FROM User WHERE id = :id", User.class)
+                .setParameter("id", userId)
+                .getSingleResult();
+    }
+
+    @Transactional
+    public void update(User updatedUser) {
+        User existingUser = em.find(User.class, updatedUser.getId());
+        em.merge(existingUser);
+    }
+
+    @Transactional
+    public void delete(Long userId) {
+        User userToRemove = em.find(User.class, userId);
+        if(userToRemove != null)
+            em.remove(userToRemove);
     }
 }
