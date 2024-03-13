@@ -61,18 +61,21 @@ public class UserService {
      * @param password
      */
     private void register(String name, String email, String password, String role){
-        User newUser = User.builder()
-                .name(name)
-                .email(email)
-                .password(password)
-                .role(role)
-                .isEnabled(true)
-                .isAccountNonLocked(true)
-                .isCredentialsNonExpired(true)
-                .isAccountNonExpired(true)
-                .build();
+        if(!exists(name)) {
+            User newUser = User.builder()
+                    .name(name)
+                    .email(email)
+                    .password(password)
+                    .role(role)
+                    .isEnabled(true)
+                    .isAccountNonLocked(true)
+                    .isCredentialsNonExpired(true)
+                    .isAccountNonExpired(true)
+                    .build();
 
-        register(newUser);
+            register(newUser);
+        }else
+            System.err.println("Cannot register user " + name + ", because exists");
     }
 
     public void registerUser(String name, String email, String password){
@@ -83,15 +86,19 @@ public class UserService {
         register(name, email, password, "ROLE_ADMIN");
     }
 
-    public boolean exists(long userId){
+    public boolean exists(Long userId){
         return userDao.exists(userId);
     }
 
-    public void lock(long userId){
+    public boolean exists(String userName){
+        return userDao.exists(userName);
+    }
+
+    public void lock(Long userId){
         userDao.lock(userId);
     }
 
-    public void unlock(long userId){
+    public void unlock(Long userId){
         userDao.unlock(userId);
     }
 }

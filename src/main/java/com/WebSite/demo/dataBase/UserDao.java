@@ -51,8 +51,14 @@ public class UserDao {
     }
 
     @Transactional(readOnly = true)
-    public boolean exists(long userId) {
+    public boolean exists(Long userId) {
         User user = read(userId);
+        return user != null;
+    }
+
+    @Transactional(readOnly = true)
+    public boolean exists(String userName) {
+        User user = read(userName);
         return user != null;
     }
 

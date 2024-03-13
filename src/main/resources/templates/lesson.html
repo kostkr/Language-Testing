@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="../static/css/header.css">
     <title>Lesson Details</title>
     <style>
-        .mb-2 {
-            /* margin-bottom: 0.5rem!important; */
-        }
         .auto-resizable-iframe {
             max-width: 1220px;
             margin: 0px auto;
@@ -18,7 +15,6 @@
 
         .auto-resizable-iframe > div {
             position: relative;
-            padding-bottom: 75%;
             height: 0px;
         }
 
@@ -27,49 +23,38 @@
             top: 0px;
             left: 0px;
             width: 100%;
-            height: 100%;
-        }
-
-        #nav {
-            position:fixed;
-        }
-
-        .custom-border {
-            border: 2px solid;
-            border-radius: 10px;
-            padding: 15px;
-        }
-
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
         }
 
         .row.content {
             height: 100vh;
         }
 
-
         .sidenav {
             padding-top: 20px;
-            height: 100%;
-            background: linear-gradient(to bottom, #f1f1f1 0%, #ffffff 100%);
+            background: #acb2b2;;
         }
 
         .middle {
             padding-top: 0px;
-            height: 100%;
-            background: linear-gradient(to bottom, #3498db -10%, #ffffff 120%);
+            background: #ffffff;;
         }
 
         @media screen and (max-width: 767px) {
             .sidenav {
                 height: auto;
-                padding: 15px;
             }
-            .row.content {height:auto;}
+
+            .row.content {
+                height: auto;
+            }
         }
 
+        .answer-box {
+            border: 1px solid black;
+            padding: 8px;
+            margin-bottom: 7px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body class="middle">
@@ -77,175 +62,128 @@
 
 <div class="container-fluid">
     <div class="row content d-flex">
+        <div class="col-sm-2 sidenav d-flex flex-column"></div>
 
-        <div class="col-sm-2 sidenav d-flex flex-column" style="
-    padding-left: 0px;
-    padding-top: 0px;
-    padding-right: 0px;
-">
-        </div>
-<div class="col-sm-8 text-left flex-fill">
-<div class="container">
-    <div class="p-3 mb-2 bg-warning text-dark"
-         th:text="${lesson.getName() + ' - ' + (lesson.getLevel() != null ? lesson.getLevel() : '') + ' ' + (lesson.getType() != null ? lesson.getType() : '')}"></div>
-
-    <div class="container mt-5">
-        <div class="card custom-border">
-            <div class="card-body">
-            <h2 class="card-title" th:text="${lesson.getName()}"></h2>
-            <p class="card-text" th:text="${lesson.getDescription()}"></p>
-            </div>
-        </div>
-    </div>
-    <hr>
-
-    <div th:if="${lesson.getType() == 'Listening'}">
-        <div  class="auto-resizable-iframe" >
-            <div>
-        <iframe width="1220" height="720"
-                th:src="${lesson.getInformationSource()}"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-        </iframe>
-            </div>
-        </div>
-    </div>
-
-    <div th:if="${lesson.getType() == 'Reading'}">
-        <div class="container mt-5">
-            <div class="card custom-border">
-                <div class="card-body">
-                    <p th:text="${lesson.getInformationSource()}"></p>
+        <div class="col-sm-8 text-left flex-fill">
+            <div class="container">
+                <div class="container-fluid p-3 bg-warning text-dark text-uppercase" style="font-size: 1.2em;">
+                    <span th:text="${lesson.getName() + ' - ' + lesson.getLevel() + ' ' + lesson.getType()}"></span>
                 </div>
-            </div>
-        </div>
-    </div>
 
-
-    <div th:if="${lesson.getType() == 'Writing'}">
-        <div class="container mt-5">
-            <div class="card custom-border">
-                <div class="card-body">
-                    <p th:text="${lesson.getInformationSource()}"></p>
+                <div class="container mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text" th:text="${lesson.getDescription()}"></p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <hr>
 
-        <div  class="auto-resizable-iframe" >
-            <div>
-        <textarea  class="form-control" style="min-width: 100%" id="writingArea" name="writingArea" rows="38" cols="162" required></textarea>
-            </div>
-        </div>
-    </div>
+                <div class="container mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text" th:text="${lesson.getTask()}"></p>
+                        </div>
+                    </div>
+                </div>
 
+                <div th:if="${lesson.getType() == 'Listening'}" style="max-width: 100%; overflow: hidden;" class="mt-5">
+                    <div class="auto-resizable-iframe">
+                        <div style="position: relative; padding-bottom: 56.25%; /* 16:9 video */ padding-top: 30px; height: 0; overflow: hidden;">
+                            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" width="1220" height="720"
+                                    th:src="${lesson.getInformationSource()}"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="container mt-5">
-        <div class="card custom-border">
-            <div class="card-body">
-                <h3>Exercise</h3>
-                <p th:text="${lesson.getTask()}"></p>
+                <div th:if="${lesson.getType() == 'Reading' or lesson.getType() == 'Grammar' or lesson.getType() == 'Writing' or lesson.getType() == 'Vocabulary'}">
+                    <div class="container mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <p th:text="${lesson.getInformationSource()}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="container mt-3" id="questionsContainer">
+                    <!-- This block will be populated with questions and answers from the database -->
+                </div>
 
                 <div id="result"></div>
 
-                <button type="button" class="btn btn-primary" onclick="checkAnswers()">Check Answers</button>
-
-                <script th:inline="javascript">
-                    var questionsArray = /*[[${lesson.getQuestions()}]]*/ [];
-                    var Answers = /*[[${allAnswers}]]*/ [];
-
-                    function showAndAnswerQuestions() {
-
-                        var ulElement = document.createElement('ul');
-
-                        // show questions
-                        questionsArray.forEach(function(question, index) {
-                            var liElement = document.createElement('li')
-                            liElement.style.fontSize = '18px';
-
-                            liElement.textContent = (index + 1) + ". " + question;
-
-                            var lineBreak = document.createElement('br');
-                            liElement.appendChild(lineBreak);
-
-                            // add field to answers
-                            var answerInput = document.createElement('input');
-                            answerInput.type = 'text';
-                            answerInput.placeholder = 'Your Answer...';
-                            answerInput.id = 'answer' + (index + 1);
-                            liElement.appendChild(answerInput);
-
-                            ulElement.appendChild(liElement);
-                        });
-
-                        var resultDiv = document.getElementById('result');
-
-                        resultDiv.innerHTML = '';
-
-                        resultDiv.appendChild(ulElement);
-                    }
-
-                    function checkAnswers() {
-                        var resultDiv = document.getElementById('result');
-                        var answersArray = /*[[${lesson.getAnswers()}]]*/ [];
-                        var userAnswers = [];
-                        var correctCount = 0;
-
-                        // check user's answer
-                        for (var i = 1; i <= answersArray.length; i++) {
-                            var answerInput = document.getElementById('answer' + i);
-                            if (answerInput) {
-                                userAnswers.push(answerInput.value);
-
-                                if (answerInput.value === answersArray[i - 1]) {
-                                    correctCount++;
-                                }
-                            }
-                        }
-
-                        // show questions and answers
-                        var resultHTML = '<h3>Questions:</h3>';
-                        for (var i = 0; i < answersArray.length; i++) {
-                            resultHTML += '<p><strong>Question ' + (i + 1) + ':</strong> ' + questionsArray[i] + '<br>';
-                            resultHTML += '<strong>Your Answer:</strong> ' + (userAnswers[i].length >= 1 ? userAnswers[i] : 'Not answered');
-
-                            // check answers and show result
-                            if (i < answersArray.length) {
-                                resultHTML += ' - <span style="color: ' + (userAnswers[i] === answersArray[i] ? 'green' : 'red') + '">'
-                                    + (userAnswers[i] === answersArray[i] ? 'Correct' : 'Incorrect') + '</span><br>';
-                            }
-
-                            resultHTML += '<strong>Correct Answer:</strong> ' + answersArray[i] + '<br>'
-
-                            resultHTML += '</p>';
-                        }
-
-                        resultDiv.innerHTML = resultHTML;
-
-                        resultDiv.innerHTML += '<p><strong>Total Correct Answers:</strong> ' + correctCount + '</p>';
-                    }
-
-                    window.onload = function() {
-                        showAndAnswerQuestions();
-                    };
-                </script>
+                <div class="mt-3" style="margin-bottom: 30px;">
+                    <button type="button" class="btn btn-primary" onclick="checkAnswers()">
+                        Check Answers
+                    </button>
+                </div>
             </div>
         </div>
+
+        <div class="col-sm-2 sidenav d-flex flex-column"></div>
     </div>
-    <br>
-
-</div>
 </div>
 
-        <div class="col-sm-2 sidenav d-flex flex-column" style="
-    padding-left: 0px;
-    padding-top: 0px;
-    padding-right: 0px;
-">
-</div>
-</div>
-</div>
+<script th:inline="javascript">
+    // Get the questions container element
+    var questionsContainer = document.getElementById('questionsContainer');
+
+    // user's answer
+    var userAnswers = [];
+    // Function to split a string of answers into an array of answers
+    function splitAnswers(answers) {
+        return answers.split('; '); // Assuming answers are separated by semicolons
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array
+    }
+
+    // Function to display questions and answers in the container
+    function displayQuestionsAndAnswers(questions, correctAnswers, wrongAnswers) {
+        // Loop through each question
+        for (var i = 0; i < questions.length; i++) {
+            var question = questions[i];
+            var answers = shuffleArray(splitAnswers(correctAnswers[i]).concat(splitAnswers(wrongAnswers[i])))
+
+            // Create elements to display the question
+            var questionElement = document.createElement('div');
+            questionElement.textContent = (i + 1) + ') ' + question;
+            questionElement.style.paddingBottom = '10px';
+            questionsContainer.appendChild(questionElement);
+
+            // Create elements to display the answers
+            for (var j = 0; j < answers.length; j++) {
+                var answerElement = document.createElement('div');
+                answerElement.textContent = answers[j];
+                answerElement.classList.add('answer-box');
+                questionsContainer.appendChild(answerElement);
+            }
+
+            var spaceElement = document.createElement('div')
+            spaceElement.style.margin = '30px';
+            questionsContainer.appendChild(spaceElement);
+        }
+    }
+
+    var questions = /*[[ ${lesson.getQuestions()} ]]*/ [];
+    var correctAnswers = /*[[ ${lesson.getAnswersCorrect()} ]]*/ [];
+    var wrongAnswers = /*[[ ${lesson.getAnswersWrong()} ]]*/ [];
+
+    // Display questions and answers
+    displayQuestionsAndAnswers(questions, correctAnswers, wrongAnswers);
+
+    // Function to check user answers
+    function checkAnswers() {}
+</script>
 
 </body>
 </html>
