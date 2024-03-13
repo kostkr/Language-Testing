@@ -1,7 +1,6 @@
 package com.WebSite.demo.web;
 
-import com.WebSite.demo.dataBase.AlbumDao;
-import com.WebSite.demo.model.Album;
+import com.WebSite.demo.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,24 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/album")
 public class AlbumController {
+    private final AlbumService albumService;
 
     @Autowired
-    private AlbumDao albumDao;
+    AlbumController(AlbumService albumService){
+        this.albumService = albumService;
+    }
 
-    /**
-     * search album by type and level
-     * @param type
-     * @param level
-     * @param model
-     * @return album
-     */
     @GetMapping()
     public String showAlbum(@RequestParam(value = "type") String type,
                             @RequestParam(value = "level") String level,
                             Model model){
-        Album album = albumDao.getAlbumsByTypeLevel(type, level);
-        model.addAttribute(album);
+        model.addAttribute(albumService.getAlbum(type, level));
         return "album";
     }
-
 }

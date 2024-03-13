@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    UserDao userDao;
+    private final UserDao userDao;
 
     @Autowired
     UserService(UserDao userDao){
@@ -35,7 +35,7 @@ public class UserService {
      * @param userId user id unique
      * @return User data copy
      */
-    public User read(Long userId){
+    public User read(long userId){
         return userDao.read(userId);
     }
 
@@ -50,7 +50,7 @@ public class UserService {
     /**
      * @param userId user id
      */
-    public void delete(Long userId){
+    public void delete(long userId){
     userDao.delete(userId);
     }
 
@@ -83,15 +83,15 @@ public class UserService {
         register(name, email, password, "ROLE_ADMIN");
     }
 
-    public boolean exists(Long userId){
+    public boolean exists(long userId){
         return userDao.exists(userId);
     }
 
-    public void lock(Long userId){
+    public void lock(long userId){
         userDao.lock(userId);
     }
 
-    public void unlock(Long userId){
+    public void unlock(long userId){
         userDao.unlock(userId);
     }
 }

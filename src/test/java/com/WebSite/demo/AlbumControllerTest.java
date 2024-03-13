@@ -1,7 +1,7 @@
 package com.WebSite.demo;
 
 import com.WebSite.demo.dataBase.AlbumDao;
-import com.WebSite.demo.model.Album;
+import com.WebSite.demo.dto.Album;
 import com.WebSite.demo.web.AlbumController;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

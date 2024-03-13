@@ -9,42 +9,38 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(of = {"id", "name"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name="users")
 public class User {
-    @EqualsAndHashCode.Include
     @Id
-    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @EqualsAndHashCode.Include
-    @Column(name="name", unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @EqualsAndHashCode.Include
-    @Column(name="password")
+    @Column(nullable = false)
     private String password;
 
-    @Column(name="email")
+    @Column(nullable = false)
     private String email;
 
-    @Column(name="role")
+    @Column(nullable = false)
     private String role;
 
-    @Column(name="isAccountNonExpired")
+    @Column(nullable = false)
     private boolean isAccountNonExpired;
 
-    @Column(name="isAccountNonLocked")
+    @Column(nullable = false)
     private boolean isAccountNonLocked;
 
-    @Column(name="isCredentialsNonExpired")
+    @Column(nullable = false)
     private boolean isCredentialsNonExpired;
 
-    @Column(name="isEnabled")
+    @Column(nullable = false)
     private boolean isEnabled;
 }

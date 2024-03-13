@@ -10,7 +10,6 @@
     <style>
         .navbar {
             --bs-bg-opacity: 1;
-            background-color: lightblue; /* Change this line to the desired color */
             margin-bottom: 0;
             border-radius: 0;
         }
@@ -21,14 +20,12 @@
 
         .sidenav {
             padding-top: 20px;
-            height: 100%;
-            background: linear-gradient(to bottom, #f1f1f1 0%, #ffffff 100%);
+            background: #acb2b2;
         }
 
         .middle {
             padding-top: 0px;
-            height: 100%;
-            background: linear-gradient(to bottom, #3498db -10%, #ffffff 120%);
+            min-height: 100%;
         }
 
         @media screen and (max-width: 767px) {
@@ -41,7 +38,7 @@
     </style>
 </head>
 <body class="middle">
-<th:replace th:replace="~{header :: common-header}"></th:replace>
+<th:block th:replace="~{header :: common-header}"></th:block>
 
 <div class="container-fluid">
     <div class="row content">
@@ -57,8 +54,14 @@
                 <h2>Create Lesson</h2>
                 <form action="/createLesson" method="post" id="createTestForm">
                     <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <label for="type">Type:</label>
+                        <select class="form-control" id="type" name="type" required>
+                            <option value="Grammar">Grammar</option>
+                            <option value="Vocabulary">Vocabulary</option>
+                            <option value="Listening">Listening</option>
+                            <option value="Reading">Reading</option>
+                            <option value="Writing">Writing</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="level">Level:</label>
@@ -72,31 +75,24 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="level">Type:</label>
-                        <select class="form-control" id="type" name="type" required>
-                            <option value="Grammar">Grammar</option>
-                            <option value="Vocabulary">Vocabulary</option>
-                            <option value="Listening">Listening</option>
-                            <option value="Reading">Reading</option>
-                            <option value="Writing">Writing</option>
-                        </select>
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="imageURL">ImageURL:</label>
                         <textarea class="form-control" id="imageURL" name="imageURL" rows="1" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="opt">URL Video, Listening, text:</label>
-                        <textarea class="form-control" id="opt" name="opt" rows="1"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description">Description:</label>
-                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
                         <label for="task">Task:</label>
                         <textarea class="form-control" id="task" name="task" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="informationSource">URL Video, Listening, text:</label>
+                        <textarea class="form-control" id="informationSource" name="informationSource" rows="1"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="questionCount">Number of Questions:</label>
@@ -136,12 +132,19 @@
             questionInput.placeholder = 'Question ' + i;
             container.appendChild(questionInput);
 
-            var answerInput = document.createElement('input');
-            answerInput.type = 'text';
-            answerInput.className = 'form-control mt-2';
-            answerInput.name = 'answers[]';
-            answerInput.placeholder = 'Correct Answer for Question ' + i;
-            container.appendChild(answerInput);
+            var answerCorrectInput = document.createElement('input');
+            answerCorrectInput.type = 'text';
+            answerCorrectInput.className = 'form-control mt-2';
+            answerCorrectInput.name = 'answersCorrect[]';
+            answerCorrectInput.placeholder = 'Correct Answers for Question ' + i;
+            container.appendChild(answerCorrectInput);
+
+            var answerWrongInput = document.createElement('input');
+            answerWrongInput.type = 'text';
+            answerWrongInput.className = 'form-control mt-2';
+            answerWrongInput.name = 'answersWrong[]';
+            answerWrongInput.placeholder = 'Wrong Answers for Question ' + i;
+            container.appendChild(answerWrongInput);
         }
     }
 </script>

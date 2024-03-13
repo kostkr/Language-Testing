@@ -1,7 +1,7 @@
 package com.WebSite.demo;
 
 import com.WebSite.demo.model.Lesson;
-import com.WebSite.demo.model.LessonInfo;
+import com.WebSite.demo.dto.LessonInfo;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

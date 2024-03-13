@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,23 +87,23 @@
 <div class="col-sm-8 text-left flex-fill">
 <div class="container">
     <div class="p-3 mb-2 bg-warning text-dark"
-         th:text="${lesson.getLessonInfo().getName() + ' - ' + (lesson.getLessonInfo().getLevel() != null ? lesson.getLessonInfo().getLevel() : '') + ' ' + (lesson.getLessonInfo().getType() != null ? lesson.getLessonInfo().getType() : '')}"></div>
+         th:text="${lesson.getName() + ' - ' + (lesson.getLevel() != null ? lesson.getLevel() : '') + ' ' + (lesson.getType() != null ? lesson.getType() : '')}"></div>
 
     <div class="container mt-5">
         <div class="card custom-border">
             <div class="card-body">
-            <h2 class="card-title" th:text="${lesson.getLessonInfo().getName()}"></h2>
-            <p class="card-text" th:text="${lesson.getLessonInfo().getDescription()}"></p>
+            <h2 class="card-title" th:text="${lesson.getName()}"></h2>
+            <p class="card-text" th:text="${lesson.getDescription()}"></p>
             </div>
         </div>
     </div>
     <hr>
 
-    <div th:if="${lesson.getLessonInfo().getType() == 'Listening'}">
+    <div th:if="${lesson.getType() == 'Listening'}">
         <div  class="auto-resizable-iframe" >
             <div>
         <iframe width="1220" height="720"
-                th:src="${lesson.getLessonInfo().getOpt()}"
+                th:src="${lesson.getInformationSource()}"
                 title="YouTube video player" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen>
@@ -112,22 +112,22 @@
         </div>
     </div>
 
-    <div th:if="${lesson.getLessonInfo().getType() == 'Reading'}">
+    <div th:if="${lesson.getType() == 'Reading'}">
         <div class="container mt-5">
             <div class="card custom-border">
                 <div class="card-body">
-                    <p th:text="${lesson.getLessonInfo().getOpt()}"></p>
+                    <p th:text="${lesson.getInformationSource()}"></p>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div th:if="${lesson.getLessonInfo().getType() == 'Writing'}">
+    <div th:if="${lesson.getType() == 'Writing'}">
         <div class="container mt-5">
             <div class="card custom-border">
                 <div class="card-body">
-                    <p th:text="${lesson.getLessonInfo().getOpt()}"></p>
+                    <p th:text="${lesson.getInformationSource()}"></p>
                 </div>
             </div>
         </div>

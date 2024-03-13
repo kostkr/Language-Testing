@@ -1,4 +1,4 @@
-package com.WebSite.demo.model;
+package com.WebSite.demo.dto;
 
 import lombok.*;
 
@@ -8,10 +8,8 @@ import java.util.List;
  * a group of lessons sorted for users
  */
 @AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Builder
+@Getter
 public class Album {
     String type;
     String level;

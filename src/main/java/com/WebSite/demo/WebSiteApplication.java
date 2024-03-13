@@ -1,25 +1,14 @@
 package com.WebSite.demo;
 
-import com.WebSite.demo.dataBase.LessonDao;
-import com.WebSite.demo.dataBase.UserDao;
-import com.WebSite.demo.model.Lesson;
-import com.WebSite.demo.model.LessonInfo;
-import com.WebSite.demo.model.User;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Entry point for the WebSiteApplication.
  */
 @SpringBootApplication
 public class WebSiteApplication{
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		SpringApplication.run(WebSiteApplication.class, args);
 		/*Thread.sleep(100);
 

@@ -1,40 +1,69 @@
 package com.WebSite.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 /**
  * basic lesson class,
  * Lesson consist of LessonInfo (information about lesson), task, questions and answers
+ * hierarchy: /type/level/name
+ * index question == index answer
+ * {answer; answer; answer}{answer, answer, answer}
  */
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "lesson")
+@Table(name = "lessons")
 public class Lesson{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
-    @Column
+    @Column(nullable = false)
+    private String type;
+
+    @Column(nullable = false)
+    private String level;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private String imageURL;
+
+    @Column(nullable = false)
     private String task;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lesson_info_id")
-    private LessonInfo lessonInfo;
+    @Column(nullable = false)
+    private String informationSource;// text, video URL or audio URL
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "lesson_questions", joinColumns = @JoinColumn(name = "lesson_id"))
     private List<String> questions;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "lesson_answers", joinColumns = @JoinColumn(name = "lesson_id"))
-    private List<String> answers;
+    @CollectionTable(name = "lesson_answers_correct", joinColumns = @JoinColumn(name = "lesson_id"))
+    private List<String> answersCorrect;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "lesson_answers_wrong", joinColumns = @JoinColumn(name = "lesson_id"))
+    private List<String> answersWrong;
+
+    public enum Level {
+        A1, A2, B1, B2, C1, C2
+    }
+
+    public enum Type{
+        Reading, Listening, Grammar, Writing, Vocabulary
+    }
 }

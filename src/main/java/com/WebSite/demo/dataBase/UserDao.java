@@ -35,42 +35,44 @@ public class UserDao {
     }
 
     @Transactional(readOnly = true)
-    public User read(Long userId) {
-        return em.createQuery("FROM User WHERE id = :id", User.class)
-                .setParameter("id", userId)
-                .getSingleResult();
+    public User read(long userId) {
+        return em.find(User.class, userId);
     }
 
     @Transactional
-    public void update(User updatedUser) {
-        User existingUser = em.find(User.class, updatedUser.getId());
-        em.merge(existingUser);
+    public void update(User userToUpdate) {
+        em.merge(userToUpdate);
     }
 
     @Transactional
-    public void delete(Long userId) {
+    public void delete(long userId) {
         User userToRemove = em.find(User.class, userId);
-        if(userToRemove != null)
-            em.remove(userToRemove);
+        em.remove(userToRemove);
     }
 
     @Transactional(readOnly = true)
-    public boolean exists(Long userId) {
+    public boolean exists(long userId) {
         User user = read(userId);
         return user != null;
     }
 
     @Transactional
-    public void lock(Long userId){
+    public void lock(long userId){
         User user = read(userId);
-        if(user != null)
+        if(user != null) {
             user.setAccountNonLocked(false);
+            em.merge(user);
+        }else
+            System.err.println("user not found to lock");
     }
 
     @Transactional
-    public void unlock(Long userId){
+    public void unlock(long userId){
         User user = read(userId);
-        if(user != null)
+        if(user != null) {
             user.setAccountNonLocked(true);
+            em.merge(user);
+        }else
+            System.err.println("user not found to unlock");
     }
 }

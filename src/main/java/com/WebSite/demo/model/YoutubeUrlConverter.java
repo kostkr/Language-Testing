@@ -1,9 +1,13 @@
 package com.WebSite.demo.model;
 
+import org.springframework.stereotype.Service;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+@Service
 public class YoutubeUrlConverter {
-    public static String generateEmbeddedUrl(String youtubeUrl) {
+    public String generateEmbeddedUrl(String youtubeUrl) {
         String videoId = extractVideoId(youtubeUrl);
 
         if (videoId != null && !videoId.isEmpty()) {
@@ -11,11 +15,11 @@ public class YoutubeUrlConverter {
             return embeddedUrl;
         } else {
             // Handle invalid YouTube URL
-            return null;
+            return "";
         }
     }
 
-    private static String extractVideoId(String youtubeUrl) {
+    private String extractVideoId(String youtubeUrl) {
         String pattern = "(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed\042%2F|youtu.be%2F|%2Fv%2F|watch\\?v=|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed\\?video_id=|embed\\/videos\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|%2Fvideos%2F|%2Fv%2F|e\\/|%2Fv%2F)[^#\\&\\?\\n]*";
         Pattern compiledPattern = Pattern.compile(pattern);
         Matcher matcher = compiledPattern.matcher(youtubeUrl);
@@ -24,6 +28,6 @@ public class YoutubeUrlConverter {
             return matcher.group();
         }
 
-        return null;
+        return "";
     }
 }

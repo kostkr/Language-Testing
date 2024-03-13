@@ -1,15 +1,14 @@
 package com.WebSite.demo.dataBase;
 
 import com.WebSite.demo.model.Lesson;
-import com.WebSite.demo.model.LessonInfo;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 @Repository
 public class LessonDao {
-
     private final EntityManager em;
 
     @Autowired
@@ -18,28 +17,35 @@ public class LessonDao {
     }
 
     @Transactional
-    public void addLesson(Lesson lesson, LessonInfo lessonInfo) {
+    public void create(Lesson lesson) {
         em.persist(lesson);
-
-        lessonInfo.setId(lesson.getId());
-        lesson.setLessonInfo(lessonInfo);
-        em.persist(lessonInfo);
-
-        System.out.println("lesson added");
     }
 
     @Transactional(readOnly = true)
-    public Lesson findLessonById(long lessonId) {
+    public Lesson read(long lessonId) {
         return em.find(Lesson.class, lessonId);
     }
 
-    @Transactional(readOnly = true)
-    public Long findLessonByName(String name) {
-        LessonInfo lessonInfo = em.createQuery("FROM LessonInfo WHERE name = :name", LessonInfo.class)
-                .setParameter("name", name)
-                .setMaxResults(1)
-                .getSingleResult();
+    @Transactional
+    public void update(Lesson lesson) {
+        em.merge(lesson);
+    }
 
-        return lessonInfo != null ? lessonInfo.getId() : null;
+    @Transactional
+    public void delete(long lessonId) {
+        Lesson lessonToDelete = em.find(Lesson.class, lessonId);
+        em.remove(lessonToDelete);
+    }
+
+    @Transactional(readOnly = true)
+    public Long findLessonIdByName(String name) {
+        List<Long> results = em.createQuery("SELECT l.id FROM Lesson l WHERE l.name LIKE :name", Long.class)
+                .setParameter("name", name)
+                .getResultList();
+        if (results.isEmpty()) {
+            return 0L;
+        } else {
+            return results.get(0);
+        }
     }
 }
