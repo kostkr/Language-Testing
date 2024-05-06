@@ -50,7 +50,7 @@
         }
 
         .answer-box {
-            border: 1px solid black;
+            border: 1px solid;
             padding: 8px;
             margin-bottom: 7px;
             border-radius: 5px;
@@ -66,23 +66,19 @@
 
         <div class="col-sm-8 text-left flex-fill">
             <div class="container">
-                <div class="container-fluid p-3 bg-warning text-dark text-uppercase" style="font-size: 1.2em;">
+                <div class="container-fluid p-3 bg-warning text-dark text-uppercase" style="font-size: 1.2em; width: 100%;">
                     <span th:text="${lesson.getName() + ' - ' + lesson.getLevel() + ' ' + lesson.getType()}"></span>
                 </div>
 
-                <div class="container mt-5">
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-text" th:text="${lesson.getDescription()}"></p>
-                        </div>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${lesson.getDescription()}"></p>
                     </div>
                 </div>
 
-                <div class="container mt-5">
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-text" th:text="${lesson.getTask()}"></p>
-                        </div>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${lesson.getTask()}"></p>
                     </div>
                 </div>
 
@@ -100,13 +96,11 @@
                 </div>
 
                 <div th:if="${lesson.getType() == 'Reading' or lesson.getType() == 'Grammar' or lesson.getType() == 'Writing' or lesson.getType() == 'Vocabulary'}">
-                    <div class="container mt-5">
-                        <div class="card">
+                        <div class="card mt-4">
                             <div class="card-body">
                                 <p th:text="${lesson.getInformationSource()}"></p>
                             </div>
                         </div>
-                    </div>
                 </div>
                 <hr>
 
@@ -115,12 +109,6 @@
                 </div>
 
                 <div id="result"></div>
-
-                <div class="mt-3" style="margin-bottom: 30px;">
-                    <button type="button" class="btn btn-primary" onclick="checkAnswers()">
-                        Check Answers
-                    </button>
-                </div>
             </div>
         </div>
 
@@ -129,11 +117,10 @@
 </div>
 
 <script th:inline="javascript">
+    const separator = ";"
     // Get the questions container element
     var questionsContainer = document.getElementById('questionsContainer');
 
-    // user's answer
-    var userAnswers = [];
     // Function to split a string of answers into an array of answers
     function splitAnswers(answers) {
         return answers.split('; '); // Assuming answers are separated by semicolons
@@ -152,7 +139,15 @@
         // Loop through each question
         for (var i = 0; i < questions.length; i++) {
             var question = questions[i];
-            var answers = shuffleArray(splitAnswers(correctAnswers[i]).concat(splitAnswers(wrongAnswers[i])))
+            var correctAnswersArray = splitAnswers(correctAnswers[i]);
+            var wrongAnswersArray = splitAnswers(wrongAnswers[i]);
+            var answers = [];
+
+            // create answers array and shuffle
+            correctAnswersArray.forEach(answer => answers.push({ text: answer, isCorrect: true }));
+            wrongAnswersArray.forEach(answer => answers.push({ text: answer, isCorrect: false }));
+
+            answers = shuffleArray(answers);
 
             // Create elements to display the question
             var questionElement = document.createElement('div');
@@ -160,15 +155,25 @@
             questionElement.style.paddingBottom = '10px';
             questionsContainer.appendChild(questionElement);
 
-            // Create elements to display the answers
-            for (var j = 0; j < answers.length; j++) {
+            answers.forEach(answer => {
                 var answerElement = document.createElement('div');
-                answerElement.textContent = answers[j];
+                answerElement.textContent = answer.text;
                 answerElement.classList.add('answer-box');
-                questionsContainer.appendChild(answerElement);
-            }
 
-            var spaceElement = document.createElement('div')
+                answerElement.addEventListener('click', function() {
+                    if (this.style.backgroundColor === '') {
+                        if (answer.isCorrect)
+                            this.style.backgroundColor = 'green';
+                        else
+                            this.style.backgroundColor = 'red';
+                    }else
+                        this.style.backgroundColor = '';
+                });
+
+                questionsContainer.appendChild(answerElement);
+            });
+
+            var spaceElement = document.createElement('div');
             spaceElement.style.margin = '30px';
             questionsContainer.appendChild(spaceElement);
         }
@@ -180,9 +185,6 @@
 
     // Display questions and answers
     displayQuestionsAndAnswers(questions, correctAnswers, wrongAnswers);
-
-    // Function to check user answers
-    function checkAnswers() {}
 </script>
 
 </body>

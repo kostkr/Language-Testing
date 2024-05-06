@@ -3,7 +3,10 @@ package com.WebSite.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.stream.IntStream;
 
 /**
  * basic lesson class,
@@ -53,7 +56,7 @@ public class Lesson{
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "lesson_answers_correct", joinColumns = @JoinColumn(name = "lesson_id"))
-    private List<String> answersCorrect;
+    private List<String> answersCorrect;// {{ans1; ans2; ans3}, ... }
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "lesson_answers_wrong", joinColumns = @JoinColumn(name = "lesson_id"))

@@ -42,10 +42,6 @@ public class LessonDao {
         List<Long> results = em.createQuery("SELECT l.id FROM Lesson l WHERE l.name LIKE :name", Long.class)
                 .setParameter("name", name)
                 .getResultList();
-        if (results.isEmpty()) {
-            return 0L;
-        } else {
-            return results.get(0);
-        }
+        return results.isEmpty() ? 0L : results.get(0);
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public class UserDao {
 
@@ -57,9 +59,11 @@ public class UserDao {
     }
 
     @Transactional(readOnly = true)
-    public boolean exists(String userName) {
-        User user = read(userName);
-        return user != null;
+    public boolean exists(String name) {
+        List<User> users = em.createQuery("FROM User WHERE name = :name", User.class)
+                .setParameter("name", name)
+                .getResultList();
+        return !users.isEmpty();
     }
 
     @Transactional
