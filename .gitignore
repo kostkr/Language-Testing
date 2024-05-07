@@ -16,7 +16,6 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-src/main/java/com/WebSite/demo/TestClass.java
 
 ### IntelliJ IDEA ###
 .idea
@@ -36,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Ignore LessonExample.java
+com/WebSite/demo/LessonExample.java
+
+# Ignore all tests.zip files
+*/all tests.zip

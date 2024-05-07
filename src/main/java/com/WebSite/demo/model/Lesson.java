@@ -69,4 +69,6 @@ public class Lesson{
     public enum Type{
         Reading, Listening, Grammar, Writing, Vocabulary
     }
+
+    public static final String separator = "; ";
 }

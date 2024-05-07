@@ -42,14 +42,8 @@
 
 <div class="container-fluid">
     <div class="row content">
-        <div class="col-sm-2 sidenav" style="
-    padding-left: 0px;
-    padding-top: 0px;
-    padding-right: 0px;
-">
-        </div>
+        <div class="col-sm-2 sidenav" style="padding-left: 0px; padding-top: 0px; padding-right: 0px;"></div>
         <div class="col-sm-8 text-left">
-
             <div class="container mt-5">
                 <h2>Create Lesson</h2>
                 <form action="/createLesson" method="post" id="createTestForm">
@@ -94,58 +88,106 @@
                         <label for="informationSource">URL Video, Listening, text:</label>
                         <textarea class="form-control" id="informationSource" name="informationSource" rows="1"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="questionCount">Number of Questions:</label>
-                        <input type="number" class="form-control" id="questionCount" name="questionCount" min="1" required>
+
+                    <div id="formsContainer" class="form-group">
+                        <!-- JavaScript will add forms here -->
                     </div>
-                    <div id="questionsContainer" class="form-group">
-                        <!-- JavaScript will add question-answer pairs here -->
+                    <div>
+                        <br>
+                        <button type="button" class="btn btn-primary" onclick="addForm()">Add Question</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="addQuestion()">Add Question</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div><br></div>
                 </form>
             </div>
-
         </div>
-        <div class="col-sm-2 sidenav" style="
-    padding-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-">
-        </div>
+        <div class="col-sm-2 sidenav" style="padding-left: 0; padding-top: 0; padding-right: 0;"></div>
     </div>
 </div>
 
 <script>
-    function addQuestion() {
-        var questionCount = document.getElementById('questionCount').value;
-        var container = document.getElementById('questionsContainer');
+    var formCounter = 0;
 
-        // Clear existing content
-        container.innerHTML = '';
+    function addForm() {
+        // Increment the form counter
+        formCounter++;
+        var container = document.getElementById('formsContainer');
 
-        for (var i = 1; i <= questionCount; i++) {
-            var questionInput = document.createElement('input');
-            questionInput.type = 'text';
-            questionInput.className = 'form-control mt-2';
-            questionInput.name = 'questions[]';
-            questionInput.placeholder = 'Question ' + i;
-            container.appendChild(questionInput);
+        // Create a new form group
+        var formGroup = document.createElement('div');
+        formGroup.className = 'form-group';
 
-            var answerCorrectInput = document.createElement('input');
-            answerCorrectInput.type = 'text';
-            answerCorrectInput.className = 'form-control mt-2';
-            answerCorrectInput.name = 'answersCorrect[]';
-            answerCorrectInput.placeholder = 'Correct Answers for Question ' + i;
-            container.appendChild(answerCorrectInput);
+        // Create question input
+        var questionInput = document.createElement('input');
+        questionInput.type = 'text';
+        questionInput.className = 'form-control mt-2';
+        questionInput.name = 'questions[]';
+        questionInput.placeholder = 'Question';
+        formGroup.appendChild(questionInput);
 
-            var answerWrongInput = document.createElement('input');
-            answerWrongInput.type = 'text';
-            answerWrongInput.className = 'form-control mt-2';
-            answerWrongInput.name = 'answersWrong[]';
-            answerWrongInput.placeholder = 'Wrong Answers for Question ' + i;
-            container.appendChild(answerWrongInput);
-        }
+        // Create divs for correct and wrong answers
+        var correctAnswerDiv = document.createElement('div');
+        correctAnswerDiv.id = 'correctAnswers' + formCounter;
+        formGroup.appendChild(correctAnswerDiv);
+
+        var wrongAnswerDiv = document.createElement('div');
+        wrongAnswerDiv.id = 'wrongAnswers' + formCounter;
+        formGroup.appendChild(wrongAnswerDiv);
+
+        // Add initial correct and wrong answer inputs
+        addAnswer(correctAnswerDiv, 'Correct Answer', formCounter, true);
+        addAnswer(wrongAnswerDiv, 'Wrong Answer', formCounter, false);
+
+        // Create buttons to add more answers
+        var addCorrectAnswerBtn = document.createElement('button');
+        addCorrectAnswerBtn.type = 'button';
+        addCorrectAnswerBtn.className = 'btn btn-secondary mt-2';
+        addCorrectAnswerBtn.innerText = 'Add Correct Answer';
+        addCorrectAnswerBtn.onclick = function() {
+            addAnswer(correctAnswerDiv, 'Correct Answer', formCounter, true);
+        };
+        formGroup.appendChild(addCorrectAnswerBtn);
+
+        var addWrongAnswerBtn = document.createElement('button');
+        addWrongAnswerBtn.type = 'button';
+        addWrongAnswerBtn.className = 'btn btn-secondary mt-2 ms-2';
+        addWrongAnswerBtn.innerText = 'Add Wrong Answer';
+        addWrongAnswerBtn.onclick = function() {
+            addAnswer(wrongAnswerDiv, 'Wrong Answer', formCounter, false);
+        };
+        formGroup.appendChild(addWrongAnswerBtn);
+
+        // Append the form group to the container
+        container.appendChild(formGroup);
+    }
+
+    function addAnswer(container, placeholder, questionNumber, isCorrect) {
+
+        var inputCount = container.querySelectorAll('input').length / 2;
+
+        // Create a div to hold both the answer input and the hidden fields
+        var answerDiv = document.createElement('div');
+        answerDiv.className = 'answer-input';
+
+        // Create the answer input
+        var answerInput = document.createElement('input');
+        answerInput.type = 'text';
+        answerInput.className = 'form-control mt-2';
+        answerInput.name = isCorrect ? 'answersCorrect[]' : 'answersWrong[]';
+        answerInput.placeholder = placeholder + ' ' + (inputCount + 1); // Add count to placeholder
+
+        // Create a hidden input for question number
+        var questionNumberInput = document.createElement('input');
+        questionNumberInput.type = 'hidden';
+        questionNumberInput.name = isCorrect ? 'questionNumberCorrect[]' : 'questionNumberWrong[]';
+        questionNumberInput.value = questionNumber;
+
+        // Append the inputs to the div
+        answerDiv.appendChild(answerInput);
+        answerDiv.appendChild(questionNumberInput);
+
+        // Append the div to the container
+        container.appendChild(answerDiv);
     }
 </script>
 </body>
