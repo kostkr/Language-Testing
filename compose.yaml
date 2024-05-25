@@ -1,17 +1,33 @@
+version: '3.8'
+
+networks:
+  mynetwork:
+
 services:
   db_mysql:
     image: mysql:8.0.35
     environment:
-      MYSQL_DATABASE: mysql
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
+    networks:
+      - mynetwork
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-#  java_app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - db_mysql
+  java_app:
+    build: .
+    depends_on:
+      db_mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - mynetwork
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_mysql:3306/mysql
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
