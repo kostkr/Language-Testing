@@ -62,13 +62,15 @@ public class Lesson{
     @CollectionTable(name = "lesson_answers_wrong", joinColumns = @JoinColumn(name = "lesson_id"))
     private List<String> answersWrong;
 
-    public enum Level {
+    private String wasCreatedTime;
+
+    /*public enum Level {
         A1, A2, B1, B2, C1, C2
     }
 
     public enum Type{
         Reading, Listening, Grammar, Writing, Vocabulary
-    }
+    }*/
 
     public static final String separator = "; ";
 }

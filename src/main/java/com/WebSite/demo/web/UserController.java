@@ -19,12 +19,12 @@ public class UserController {
 
     @GetMapping("/login")
     public String ShowLogin(){
-        return "login";
+        return "loginPage";
     }
 
     @GetMapping("/signup")
     public String showSignUp(){
-        return "signup";
+        return "signupPage";
     }
 
     /**
@@ -39,6 +39,6 @@ public class UserController {
                              @RequestParam("email") String email,
                              @RequestParam("password") String password){
         userService.registerUser(name, email, password);
-        return "login";
+        return "loginPage";
     }
 }

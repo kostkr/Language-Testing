@@ -5,6 +5,7 @@ import com.WebSite.demo.model.Lesson;
 import com.WebSite.demo.model.YoutubeUrlConverter;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.util.*;
 
 @Service
@@ -60,8 +61,10 @@ public class LessonService {
         List<String> answersWrongList = answersWrong != null ? Arrays.asList(answersWrong) : Collections.emptyList();
         List<String> answersCorrectList = answersCorrect != null ? Arrays.asList(answersCorrect) : Collections.emptyList();
 
-        if(type.equals(Lesson.Type.Listening.toString()))
+        if(type.equals("Listening"))
             informationSource = youtubeUrlConverter.generateEmbeddedUrl(informationSource);
+
+        Clock clock = Clock.systemUTC();
 
         return Lesson.builder()
                 .type(type)
@@ -74,6 +77,55 @@ public class LessonService {
                 .questions(questionsList)
                 .answersCorrect(answersCorrectList)
                 .answersWrong(answersWrongList)
+                .wasCreatedTime(clock.instant().toString())
                 .build();
+    }
+
+    public void createLessonProxi(
+            String type,
+            String level,
+            String name,
+            String description,
+            String imageURL,
+            String task,
+            String informationSource,
+            String[] questions,
+            String[] answersCorrectArray,
+            String[] answersWrongArray,
+            Integer[] questionNumberCorrect,
+            Integer[] questionNumberWrong
+    ){
+        String[] answersCorrect = new String[questions.length];
+        String[] answersWrong = new String[questions.length];
+
+        int index = 0;
+        StringBuilder newAnswers = new StringBuilder();
+        for(int i = 0; i < answersCorrectArray.length; i++){
+            if( questionNumberCorrect[i] - 1 != index){
+                answersCorrect[index] = newAnswers.substring(0, newAnswers.length() - Lesson.separator.length());
+                newAnswers = new StringBuilder();
+                index = questionNumberCorrect[i] - 1;
+            }
+
+            newAnswers.append(answersCorrectArray[i]).append(Lesson.separator);
+        }
+        answersCorrect[index] = newAnswers.substring(0, newAnswers.length() - Lesson.separator.length());
+
+
+        index = 0;
+        newAnswers = new StringBuilder();
+        for(int i = 0; i < answersWrongArray.length; i++){
+            if( questionNumberCorrect[i] - 1 != index){
+                answersWrong[index] = newAnswers.substring(0, newAnswers.length() - Lesson.separator.length());
+                newAnswers = new StringBuilder();
+                index = questionNumberWrong[i] - 1;
+            }
+
+            newAnswers.append(answersWrongArray[i]).append(Lesson.separator);
+
+        }
+        answersWrong[index] = newAnswers.substring(0, newAnswers.length() - Lesson.separator.length());
+
+        this.create(type, level, name, description, imageURL, task, informationSource, questions, answersWrong, answersCorrect);
     }
 }

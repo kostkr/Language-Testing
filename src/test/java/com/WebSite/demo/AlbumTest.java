@@ -15,7 +15,15 @@ class AlbumTest {
     @Test
     void testAlbum() {
         // Create LessonInfo objects for testing
-        LessonInfo lessonInfo1 = LessonInfo.builder().name("Lesson 1").build();
+        LessonInfo lessonInfo1 = LessonInfo.builder()
+                .id(1L)
+                .name("Lesson 1")
+                .level("B2")
+                .type("Grammar")
+                .description("description")
+                .imageURL("URL")
+                .build();
+
         LessonInfo lessonInfo2 = LessonInfo.builder().name("Lesson 2").build();
 
         // Create an Album object
@@ -36,6 +44,13 @@ class AlbumTest {
 
         // Check that lessonInfoList contains the expected LessonInfo objects
         assertThat(lessonInfoList).containsExactly(lessonInfo1, lessonInfo2);
+        assertEquals(lessonInfoList.get(0).getId(), lessonInfo1.getId());
+        assertEquals(lessonInfoList.get(0).getName(), lessonInfo1.getName());
+        assertEquals(lessonInfoList.get(0).getType(), lessonInfo1.getType());
+        assertEquals(lessonInfoList.get(0).getLevel(), lessonInfo1.getLevel());
+        assertEquals(lessonInfoList.get(0).getDescription(), lessonInfo1.getDescription());
+        assertEquals(lessonInfoList.get(0).getImageURL(), lessonInfo1.getImageURL());
+
     }
 
     @Test
@@ -69,5 +84,10 @@ class AlbumTest {
         assertEquals("AlbumType", album.getType());
         assertEquals("AlbumLevel", album.getLevel());
         assertEquals(Arrays.asList(lessonInfo1, lessonInfo2), album.getLessonInfoList());
+    }
+
+    @Test
+    public void testLessonInfo(){
+
     }
 }
